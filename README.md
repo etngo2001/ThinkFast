@@ -1,2 +1,2 @@
 # ThinkFast
-A TFT simulator
+A TFT simulator and APM stat check
