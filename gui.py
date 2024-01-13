@@ -25,7 +25,7 @@ class ThinkFastGUI:
         self.window.resizable(False, False)
 
         # Initializes variables for storage of user input for user level and gold
-        self.user_gold = 60
+        self.user_gold = 61
         self.user_level = 9
 
         # Creates the different frames for the game
@@ -85,24 +85,25 @@ class ThinkFastGUI:
         self.level.pack()
         self.gold = tk.Label(gold_frame, text=f"{self.user_gold}¢", font=("Ariel", 16), padx=5)
         self.gold.pack()
-        # self.gold.grid(row=0, column=0)
-        # self.currency = tk.Label(gold_frame, text="¢", font=("Ariel", 16))
-        # self.currency.grid(row=0, column=1)
         self.unit_odds = tk.Label(unit_odds_frame, text="5%, 10%, 20%, 40%, 25%", font=("Ariel", 8))
         self.unit_odds.pack()
 
-
         # Sets a hotkey for refreshing the shop
-        self.window.bind("<KeyPress-d>", self.refresh)
+        self.window.bind("<KeyPress-d>", self.refreshShortcut)
 
         self.window.mainloop()
 
-    def refresh(self, event=None):
-        if (self.user_gold > 1):
-            print("refresh")
-            self.user_gold -= 2
-            self.gold.config(text=f"{self.user_gold}¢")
+    # Handles the hotkey for refreshing the shop
+    def refreshShortcut(self, event=None):
+        if self.button_refresh.cget("state") not in "disabled":
+            self.refresh()
 
+    def refresh(self, event=None):
+        print("refresh")
+        self.user_gold -= 2
+        self.gold.config(text=f"{self.user_gold}¢")
+        if (self.user_gold < 2):
+            self.button_refresh.config(state=tk.DISABLED)
 
     def buyUnit(self):
         print("buy unit")
