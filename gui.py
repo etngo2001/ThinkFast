@@ -24,6 +24,10 @@ class ThinkFastGUI:
         self.window.geometry(f"{window_width}x{window_height}+{x_coordinate}+{y_coordinate}")
         self.window.resizable(False, False)
 
+        # Initializes variables for storage of user input for user level and gold
+        self.user_gold = 60
+        self.user_level = 9
+
         # Creates the different frames for the game
         landing_frame = tk.Frame(self.window, bg="black")
         team_builder_frame = tk.Frame(self.window, bg="yellow")
@@ -33,12 +37,22 @@ class ThinkFastGUI:
         game_frame.pack(fill=tk.BOTH, expand=True)
 
         # Creates the frame for the shop
-        shop_frame = tk.Frame(game_frame, bg="red", width=960, height=150, padx=10, pady=10)
+        shop_frame = tk.Frame(game_frame, bg="red", padx=10, pady=10)
         shop_frame.pack(side="bottom")
 
         # Creates a frame for action buttons
         action_frame = tk.Frame(shop_frame, bg="blue")
         action_frame.grid(row=0, column=0)
+
+        # Creates a frame for displaying user's level, gold, and unit odds
+        level_frame = tk.Frame(game_frame, bg="yellow")
+        level_frame.place(in_=shop_frame, x=-10, y=-40)
+
+        gold_frame = tk.Frame(game_frame, bg="yellow")
+        gold_frame.place(in_=shop_frame, relx=0.5, x=-10, y=-40)
+
+        unit_odds_frame = tk.Frame(game_frame, bg="blue", width=300, height=15)
+        unit_odds_frame.place(in_=level_frame, relx=1.0, rely=0.33)
 
         # Creates a button for spending gold to level up
         # This button will be clickable but has no function for this version of the game
@@ -66,16 +80,29 @@ class ThinkFastGUI:
         self.unit_5 = tk.Button(shop_frame, text="Unit 5", command=self.buyUnit, width=20, height=5)
         self.unit_5.grid(row=0, column=5, padx=3)
 
+        # Creates a label for displaying player's desired gold and level and unit odds
+        self.level = tk.Label(level_frame, text=f"Level {self.user_level}", font=("Ariel", 16), padx=5)
+        self.level.pack()
+        self.gold = tk.Label(gold_frame, text=f"{self.user_gold}¢", font=("Ariel", 16), padx=5)
+        self.gold.pack()
+        # self.gold.grid(row=0, column=0)
+        # self.currency = tk.Label(gold_frame, text="¢", font=("Ariel", 16))
+        # self.currency.grid(row=0, column=1)
+        self.unit_odds = tk.Label(unit_odds_frame, text="5%, 10%, 20%, 40%, 25%", font=("Ariel", 8))
+        self.unit_odds.pack()
+
+
         # Sets a hotkey for refreshing the shop
-        self.window.bind("<KeyPress-d>", self.refreshShortcut)
+        self.window.bind("<KeyPress-d>", self.refresh)
 
         self.window.mainloop()
 
-    def refreshShortcut(self):
-        self.refresh()
+    def refresh(self, event=None):
+        if (self.user_gold > 1):
+            print("refresh")
+            self.user_gold -= 2
+            self.gold.config(text=f"{self.user_gold}¢")
 
-    def refresh(self):
-        print("refresh")
 
     def buyUnit(self):
         print("buy unit")
