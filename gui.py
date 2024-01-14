@@ -114,20 +114,30 @@ class ThinkFastGUI:
         self.button_refresh.grid(row=1, column=0, padx=5, pady=3)
 
         # Creates and displays the units in the shop
-        self.unit_1 = tk.Button(self.shop_frame, text="Unit 1", command=self.buy_unit, width=20, height=5)
+        self.unit_1_img = tk.PhotoImage(file="img\\common.png")
+        self.unit_1 = tk.Label(self.shop_frame, image=self.unit_1_img, bg="darkgreen")
         self.unit_1.grid(row=0, column=1, padx=3)
+        self.unit_1.bind("<Button-1>", lambda event: self.buy_unit(self.unit_1))
 
-        self.unit_2 = tk.Button(self.shop_frame, text="Unit 2", command=self.buy_unit, width=20, height=5)
+        self.unit_2_img = tk.PhotoImage(file="img\\uncommon.png")
+        self.unit_2 = tk.Label(self.shop_frame, image=self.unit_2_img, bg="darkgreen")
         self.unit_2.grid(row=0, column=2, padx=3)
+        self.unit_2.bind("<Button-1>", lambda event: self.buy_unit(self.unit_2))
 
-        self.unit_3 = tk.Button(self.shop_frame, text="Unit 3", command=self.buy_unit, width=20, height=5)
+        self.unit_3_img = tk.PhotoImage(file="img\\rare.png")
+        self.unit_3 = tk.Label(self.shop_frame, image=self.unit_3_img, bg="darkgreen")
         self.unit_3.grid(row=0, column=3, padx=3)
+        self.unit_3.bind("<Button-1>", lambda event: self.buy_unit(self.unit_3))
 
-        self.unit_4 = tk.Button(self.shop_frame, text="Unit 4", command=self.buy_unit, width=20, height=5)
+        self.unit_4_img = tk.PhotoImage(file="img\\epic.png")
+        self.unit_4 = tk.Label(self.shop_frame, image=self.unit_4_img, bg="darkgreen")
         self.unit_4.grid(row=0, column=4, padx=3)
+        self.unit_4.bind("<Button-1>", lambda event: self.buy_unit(self.unit_4))
 
-        self.unit_5 = tk.Button(self.shop_frame, text="Unit 5", command=self.buy_unit, width=20, height=5)
+        self.unit_5_img = tk.PhotoImage(file="img\\legendary.png")
+        self.unit_5 = tk.Label(self.shop_frame, image=self.unit_5_img, bg="darkgreen")
         self.unit_5.grid(row=0, column=5, padx=3)
+        self.unit_5.bind("<Button-1>", lambda event: self.buy_unit(self.unit_5))
 
         # Creates a label for displaying player's desired gold and level and unit odds
         self.level = tk.Label(self.level_frame, text=f"Level {self.user_level}", font=("Ariel", 16), padx=5)
@@ -196,7 +206,10 @@ class ThinkFastGUI:
         print("To Scoreboard")
 
     # Function to handle buying a unit from the shop
-    def buy_unit(self):
+    def buy_unit(self, element):
+        bought = tk.PhotoImage(file="img\empty.png")
+        element.config(image=bought)
+        element.image = bought
         print("buy unit")
 
 ThinkFastGUI()
