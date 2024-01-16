@@ -10,17 +10,13 @@ class ThinkFastGUI:
         self.window_icon = tk.PhotoImage(file='img\logo.png')
         self.window.iconphoto(True, self.window_icon)
 
-        # Get the screen width and height
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-
         # Set the window size
         window_width = 1280
         window_height = 720
 
         # Calculate the X and Y coordinates to center the window
-        x_coordinate = (screen_width - window_width) // 2
-        y_coordinate = (screen_height - window_height) // 2
+        x_coordinate = (self.window.winfo_screenwidth() - window_width) // 2
+        y_coordinate = (self.window.winfo_screenheight() - window_height) // 2
 
         # Set the window size and position
         self.window.geometry(f"{window_width}x{window_height}+{x_coordinate}+{y_coordinate}")
