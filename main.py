@@ -1,6 +1,8 @@
 import time
+import random
 import tkinter as tk
 from tkinter import ttk
+import tft
 
 class ThinkFastGUI:
     def __init__(self):
@@ -23,9 +25,9 @@ class ThinkFastGUI:
         self.window.resizable(False, False)
 
         # Initializes variables for storage of user input for user level and gold
-        self.user_gold = 61
-        self.user_level = 9
-        self.user_time = 30.01
+        self.user_gold = None
+        self.user_level = None
+        self.user_time = None
         self.start_time = None
 
         # Creates the different frames for the game
@@ -51,7 +53,7 @@ class ThinkFastGUI:
         self.level_label = tk.Label(self.user_input_frame, text="Select Desired Level:", bg="lightgray", pady=10, width=15, anchor=tk.E)
         self.level_label.grid(row=0, column=0, padx=(10, 0))
 
-        self.level_combobox = ttk.Combobox(self.user_input_frame, value=[1,2,3,4,5,6,7,8,9,10], width=22)
+        self.level_combobox = ttk.Combobox(self.user_input_frame, value=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], width=22, state="readonly")
         self.level_combobox.grid(row=0, column=1, sticky="w", padx=(0,10))
 
         self.gold_label = tk.Label(self.user_input_frame, text="Enter Desired Gold:", bg="lightgray", pady=10, width=15, anchor=tk.E)
@@ -63,11 +65,11 @@ class ThinkFastGUI:
         self.time_label = tk.Label(self.user_input_frame, text="Select Time Interval:", bg="lightgray", pady=10, width=15, anchor=tk.E)
         self.time_label.grid(row=2, column=0, padx=(10, 0))
 
-        self.time_combobox = ttk.Combobox(self.user_input_frame, values=["Normal Rounds (30 sec)", "Augment Round (45 sec)"], width=22)
+        self.time_combobox = ttk.Combobox(self.user_input_frame, values=["Normal Rounds (30 sec)", "Augment Round (45 sec)"], width=22, state="readonly")
         self.time_combobox.grid(row=2, column=1, sticky="w", padx=(0,10))
 
         # Creates a button to continue to the next part of the game
-        self.to_team_planner_button = tk.Button(self.landing_frame, text="Next", command=self.to_team_planner, width=10, height=2)
+        self.to_team_planner_button = tk.Button(self.landing_frame, text="Next", command=self.to_game, width=10, height=2)
         self.to_team_planner_button.place(x=580, y=640)
 
         # Below are the elements of the team_builder_frame
@@ -78,7 +80,7 @@ class ThinkFastGUI:
         self.timer_frame = tk.Frame(self.game_frame)
         self.timer_frame.pack(side="top")
 
-        self.timer_label = tk.Label(self.timer_frame, text=f"{self.user_time}", bg="black", fg="red", font=("Ariel", 30))
+        self.timer_label = tk.Label(self.timer_frame, bg="black", fg="red", font=("Ariel", 30))
         self.timer_label.pack()
 
         # Creates the frame for the shop
@@ -135,13 +137,23 @@ class ThinkFastGUI:
         self.unit_5.grid(row=0, column=5, padx=3)
         self.unit_5.bind("<Button-1>", lambda event: self.buy_unit(self.unit_5))
 
-        # Creates a label for displaying player's desired gold and level and unit odds
-        self.level = tk.Label(self.level_frame, text=f"Level {self.user_level}", font=("Ariel", 16), padx=5)
+        # Creates a label for displaying player's desired gold and level
+        self.level = tk.Label(self.level_frame, font=("Ariel", 16), padx=5)
         self.level.pack()
-        self.gold = tk.Label(self.gold_frame, text=f"{self.user_gold}¢", font=("Ariel", 16), padx=5)
+        self.gold = tk.Label(self.gold_frame, font=("Ariel", 16), padx=5)
         self.gold.pack()
-        self.unit_odds = tk.Label(self.unit_odds_frame, text="5%, 10%, 20%, 40%, 25%", font=("Ariel", 8))
-        self.unit_odds.pack()
+
+        # Handles processing and labelling unit odds based on user's chosen level
+        self.one_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="dimgray")
+        self.one_cost_odds.grid(row=0, column=0)
+        self.two_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="green")
+        self.two_cost_odds.grid(row=0, column=1)
+        self.three_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="darkblue")
+        self.three_cost_odds.grid(row=0, column=2)
+        self.four_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="purple")
+        self.four_cost_odds.grid(row=0, column=3)
+        self.five_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="orange")
+        self.five_cost_odds.grid(row=0, column=4)
 
         # Below are the elements of the scoreboard_frame
 
@@ -187,11 +199,13 @@ class ThinkFastGUI:
 
     # Functions to handle frame switching
     def to_team_planner(self, event=None):
+        self.update_game_values()
         self.landing_frame.pack_forget()
         self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
         print("To Team Planner")
 
     def to_game(self, event=None):
+        self.start_timer()
         self.team_builder_frame.pack_forget()
         self.game_frame.pack(fill=tk.BOTH, expand=True)
         print("To Game")
@@ -207,5 +221,24 @@ class ThinkFastGUI:
         element.config(image=bought)
         element.image = bought
         print("buy unit")
+
+    # Function to update user chosen game values
+    def update_game_values(self):
+        self.user_gold = int(self.gold_entry.get())
+        self.user_level = self.level_combobox.get()
+        self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) # lol
+
+        unit_cost_odds = tft.tft_level_odds[int(self.user_level)]
+
+        self.level.config(text=f"Level {self.user_level}")
+        self.gold.config(text=f"{self.user_gold}¢")
+        self.timer_label.config(text=f"{self.user_time}")
+
+        self.one_cost_odds.config(text=f"{unit_cost_odds[0]}%")
+        self.two_cost_odds.config(text=f"{unit_cost_odds[1]}%")
+        self.three_cost_odds.config(text=f"{unit_cost_odds[2]}%")
+        self.four_cost_odds.config(text=f"{unit_cost_odds[3]}%")
+        self.five_cost_odds.config(text=f"{unit_cost_odds[4]}%")
+
 
 ThinkFastGUI()
