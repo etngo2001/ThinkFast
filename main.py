@@ -69,7 +69,7 @@ class ThinkFastGUI:
         self.time_combobox.grid(row=2, column=1, sticky="w", padx=(0,10))
 
         # Creates a button to continue to the next part of the game
-        self.to_team_planner_button = tk.Button(self.landing_frame, text="Next", command=self.to_game, width=10, height=2)
+        self.to_team_planner_button = tk.Button(self.landing_frame, text="Next", command=self.to_team_planner, width=10, height=2)
         self.to_team_planner_button.place(x=580, y=640)
 
         # Below are the elements of the team_builder_frame
@@ -222,7 +222,7 @@ class ThinkFastGUI:
         element.image = bought
         print("buy unit")
 
-    # Function to update user chosen game values
+    # Function to update game frame based on user inputted values
     def update_game_values(self):
         self.user_gold = int(self.gold_entry.get())
         self.user_level = self.level_combobox.get()
