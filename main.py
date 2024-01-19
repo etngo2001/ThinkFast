@@ -74,14 +74,19 @@ class ThinkFastGUI:
 
         # Below are the elements of the team_builder_frame
 
+        # Creates a label to display the team builder title image
         self.team_builder_img = tk.PhotoImage(file="img\\team_builder.png")
         self.team_builder_title_img = tk.Label(self.team_builder_frame, image=self.team_builder_img, width=640, height=100, background="white")
         self.team_builder_title_img.pack(anchor="nw")
 
+        # Creates a combobox for users to easily change through the different menus of units
+        # sorted by their costs
         self.unit_selection = ttk.Combobox(self.team_builder_frame, values=["1-costs", "2-costs", "3-costs", "4-costs", "5-costs"], state="readonly")
         self.unit_selection.place(x=275 , y=150)
         self.unit_selection.bind("<<ComboboxSelected>>", self.display_units)
 
+        # Labels and images for visibility purposes to help users see the combobox
+        # Also just me messing around
         yellow_arrow1 = tk.PhotoImage(file="img\\yellow_arrow.png")
         yellow_arrow2 = tk.PhotoImage(file="img\\yellow_arrow2.png")
         yellow_arrow3 = tk.PhotoImage(file="img\\yellow_arrow3.png")
@@ -97,9 +102,12 @@ class ThinkFastGUI:
         self.yellow_arrow3_img.place(x=220, y=150)
         self.yellow_arrow4_img.place(x=220, y=120)
 
+        # Creates a frame to hold the champion pool for users to select from
         self.champion_select_frame = tk.Frame(self.team_builder_frame, width=640, height=720, background="white", highlightbackground="gold2", highlightthickness=2)
         self.champion_select_frame.place(x=225, y=200)
 
+        # Creates individual frames for champion icons and nametages and displays them cleanly in the
+        # champion select frame created above
         self.champion_1_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
         self.champion_1 = tk.Label(self.champion_1_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
         self.champion_1_name = tk.Label(self.champion_1_frame, text="test1", background="white", foreground="black")
@@ -191,17 +199,21 @@ class ThinkFastGUI:
         self.champion_13_name.pack()
         self.champion_13_frame.grid(row=4, column=0, pady=(0, 10))
 
+        # Creates a label for clarity in team building
         self.arrow_img = tk.PhotoImage(file="img\\arrow.png")
         self.arrow_img_label = tk.Label(self.team_builder_frame, image=self.arrow_img, background="white")
         self.arrow_img_label.place(x=550, y=260)
 
+        # Creates a frame for housing the user's chosen team
         self.team_select_frame = tk.Frame(self.team_builder_frame, background="black", highlightbackground="gold2", highlightthickness=2)
         self.team_select_frame.place(x=865, y=265)
 
+        # Creates a label for visibility
         self.user_team_img = tk.PhotoImage(file="img\\your_team.png")
         self.user_team = tk.Label(self.team_builder_frame, background="white", image=self.user_team_img)
         self.user_team.place(x=825, y=125)
 
+        # Same as the champion frames but houses the user's selected champions
         self.teammate_1 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
         self.teammate_1.grid(row=0, column=0, padx=(10, 0), pady=(10, 0))
         self.teammate_2 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
