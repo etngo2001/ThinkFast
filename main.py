@@ -32,12 +32,12 @@ class ThinkFastGUI:
 
         # Creates the different frames for the game
         self.landing_frame = tk.Frame(self.window, bg="black")
-        self.team_builder_frame = tk.Frame(self.window, bg="black")
+        self.team_builder_frame = tk.Frame(self.window, bg="white")
         self.game_frame = tk.Frame(self.window, bg="black")
         self.scoreboard_frame = tk.Frame(self.window, bg="black")
 
         # Loads the landing page for users
-        self.game_frame.pack(fill=tk.BOTH, expand=True)
+        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
 
         # Below are the elements of the landing_frame
 
@@ -73,6 +73,162 @@ class ThinkFastGUI:
         self.to_team_planner_button.place(x=580, y=640)
 
         # Below are the elements of the team_builder_frame
+
+        self.team_builder_img = tk.PhotoImage(file="img\\team_builder.png")
+        self.team_builder_title_img = tk.Label(self.team_builder_frame, image=self.team_builder_img, width=640, height=100, background="white")
+        self.team_builder_title_img.pack(anchor="nw")
+
+        self.unit_selection = ttk.Combobox(self.team_builder_frame, values=["1-costs", "2-costs", "3-costs", "4-costs", "5-costs"], state="readonly")
+        self.unit_selection.place(x=275 , y=150)
+        self.unit_selection.bind("<<ComboboxSelected>>", self.display_units)
+
+        yellow_arrow1 = tk.PhotoImage(file="img\\yellow_arrow.png")
+        yellow_arrow2 = tk.PhotoImage(file="img\\yellow_arrow2.png")
+        yellow_arrow3 = tk.PhotoImage(file="img\\yellow_arrow3.png")
+        yellow_arrow4 = tk.PhotoImage(file="img\\yellow_arrow4.png")
+        self.visibility_label = tk.Label(self.team_builder_frame, text="SELECT HERE!!", background="white", font=("Ariel", 8))
+        self.yellow_arrow1_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow1)
+        self.yellow_arrow2_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow2)
+        self.yellow_arrow3_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow3)
+        self.yellow_arrow4_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow4)
+        self.visibility_label.place(x=275, y=120)
+        self.yellow_arrow1_img.place(x=350, y=100)
+        self.yellow_arrow2_img.place(x=420, y=160)
+        self.yellow_arrow3_img.place(x=220, y=150)
+        self.yellow_arrow4_img.place(x=220, y=120)
+
+        self.champion_select_frame = tk.Frame(self.team_builder_frame, width=640, height=720, background="white", highlightbackground="gold2", highlightthickness=2)
+        self.champion_select_frame.place(x=225, y=200)
+
+        self.champion_1_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_1 = tk.Label(self.champion_1_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_1_name = tk.Label(self.champion_1_frame, text="test1", background="white", foreground="black")
+        self.champion_1.pack()
+        self.champion_1_name.pack()
+        self.champion_1_frame.grid(row=0, column=0, padx=10, pady=10)
+
+        self.champion_2_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_2 = tk.Label(self.champion_2_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_2_name = tk.Label(self.champion_2_frame, text="test2", background="white", foreground="black")
+        self.champion_2.pack()
+        self.champion_2_name.pack()
+        self.champion_2_frame.grid(row=0, column=1, padx=10, pady=10)
+
+        self.champion_3_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_3 = tk.Label(self.champion_3_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_3_name = tk.Label(self.champion_3_frame, text="test3", background="white", foreground="black")
+        self.champion_3.pack()
+        self.champion_3_name.pack()
+        self.champion_3_frame.grid(row=0, column=2, padx=10, pady=10)
+
+        self.champion_4_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_4 = tk.Label(self.champion_4_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_4_name = tk.Label(self.champion_4_frame, text="test4", background="white", foreground="black")
+        self.champion_4.pack()
+        self.champion_4_name.pack()
+        self.champion_4_frame.grid(row=1, column=0, padx=10, pady=(0, 10))
+
+        self.champion_5_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_5 = tk.Label(self.champion_5_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_5_name = tk.Label(self.champion_5_frame, text="test5", background="white", foreground="black")
+        self.champion_5.pack()
+        self.champion_5_name.pack()
+        self.champion_5_frame.grid(row=1, column=1, padx=10, pady=(0, 10))
+
+        self.champion_6_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_6 = tk.Label(self.champion_6_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_6_name = tk.Label(self.champion_6_frame, text="test6", background="white", foreground="black")
+        self.champion_6.pack()
+        self.champion_6_name.pack()
+        self.champion_6_frame.grid(row=1, column=2, padx=10, pady=(0,10))
+
+        self.champion_7_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_7 = tk.Label(self.champion_7_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_7_name = tk.Label(self.champion_7_frame, text="test7", background="white", foreground="black")
+        self.champion_7.pack()
+        self.champion_7_name.pack()
+        self.champion_7_frame.grid(row=2, column=0, padx=10, pady=(0, 10))
+
+        self.champion_8_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_8 = tk.Label(self.champion_8_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_8_name = tk.Label(self.champion_8_frame, text="test8", background="white", foreground="black")
+        self.champion_8.pack()
+        self.champion_8_name.pack()
+        self.champion_8_frame.grid(row=2, column=1, padx=10, pady=(0, 10))
+
+        self.champion_9_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_9 = tk.Label(self.champion_9_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_9_name = tk.Label(self.champion_9_frame, text="test9", background="white", foreground="black")
+        self.champion_9.pack()
+        self.champion_9_name.pack()
+        self.champion_9_frame.grid(row=2, column=2, padx=10, pady=(0, 10))
+
+        self.champion_10_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_10 = tk.Label(self.champion_10_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_10_name = tk.Label(self.champion_10_frame, text="test10", background="white", foreground="black")
+        self.champion_10.pack()
+        self.champion_10_name.pack()
+        self.champion_10_frame.grid(row=3, column=0, padx=10, pady=(0, 10))
+
+        self.champion_11_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_11 = tk.Label(self.champion_11_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_11_name = tk.Label(self.champion_11_frame, text="test11", background="white", foreground="black")
+        self.champion_11.pack()
+        self.champion_11_name.pack()
+        self.champion_11_frame.grid(row=3, column=1, padx=10, pady=(0, 10))
+
+        self.champion_12_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_12 = tk.Label(self.champion_12_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_12_name = tk.Label(self.champion_12_frame, text="test12", background="white", foreground="black")
+        self.champion_12.pack()
+        self.champion_12_name.pack()
+        self.champion_12_frame.grid(row=3, column=2, padx=10, pady=(0, 10))
+
+        self.champion_13_frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        self.champion_13 = tk.Label(self.champion_13_frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        self.champion_13_name = tk.Label(self.champion_13_frame, text="test13")
+        self.champion_13.pack()
+        self.champion_13_name.pack()
+        self.champion_13_frame.grid(row=4, column=0, pady=(0, 10))
+
+        self.arrow_img = tk.PhotoImage(file="img\\arrow.png")
+        self.arrow_img_label = tk.Label(self.team_builder_frame, image=self.arrow_img, background="white")
+        self.arrow_img_label.place(x=550, y=260)
+
+        self.team_select_frame = tk.Frame(self.team_builder_frame, background="black", highlightbackground="gold2", highlightthickness=2)
+        self.team_select_frame.place(x=865, y=265)
+
+        self.user_team_img = tk.PhotoImage(file="img\\your_team.png")
+        self.user_team = tk.Label(self.team_builder_frame, background="white", image=self.user_team_img)
+        self.user_team.place(x=825, y=125)
+
+        self.teammate_1 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_1.grid(row=0, column=0, padx=(10, 0), pady=(10, 0))
+        self.teammate_2 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_2.grid(row=0, column=1, pady=(10, 0))
+        self.teammate_3 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_3.grid(row=0, column=2, padx=(0, 10), pady=(10,0))
+        self.teammate_4 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_4.grid(row=1, column=0, padx=(10, 0), pady=10)
+        self.teammate_5 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_5.grid(row=1, column=1, pady=10, padx=10)
+        self.teammate_6 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_6.grid(row=1, column=2, padx=(0, 10), pady=10)
+        self.teammate_7 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_7.grid(row=2, column=0, padx=(10, 0), pady=(0, 10))
+        self.teammate_8 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_8.grid(row=2, column=1, padx=10, pady=(0, 10))
+        self.teammate_9 = tk.Label(self.team_select_frame, image=tk.PhotoImage(), width=50, height=50, background="white")
+        self.teammate_9.grid(row=2, column=2, padx=(0, 10), pady=(0, 10))
+
+        # Creates a button to continue to the next part of the game
+        self.warning_label = tk.Label(self.team_builder_frame, text= "WARNING!! The game starts the moment you press this button. Be ready!", font=("Ariel", 8), background="yellow")
+        self.warning_label.place(x=820, y=600)
+        self.warning_arrow_img = tk.PhotoImage(file="img\\arrow2.png")
+        self.warning_arrow = tk.Label(self.team_builder_frame, image=self.warning_arrow_img, background="white")
+        self.warning_arrow.place(x=1020, y= 620)
+        self.to_game_button = tk.Button(self.team_builder_frame, text="START!", command=self.to_game, width=10, height=2)
+        self.to_game_button.place(x=930, y=640)
 
         # Below are the elements of the game_frame
 
@@ -197,6 +353,10 @@ class ThinkFastGUI:
         nice_seconds = f"{seconds:.2f}"
         return nice_seconds
 
+    # Funtion to display units in the team builder
+    def display_units(self, event):
+        print(f"displaying {event.widget.get()}")
+
     # Functions to handle frame switching
     def to_team_planner(self, event=None):
         self.update_game_values()
@@ -226,7 +386,7 @@ class ThinkFastGUI:
     def update_game_values(self):
         self.user_gold = int(self.gold_entry.get())
         self.user_level = self.level_combobox.get()
-        self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) # lol
+        self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) + 0.5 # lol
 
         unit_cost_odds = tft.tft_level_odds[int(self.user_level)]
 
