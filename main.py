@@ -272,11 +272,13 @@ class ThinkFastGUI:
         # Creates a button for spending gold to level up
         # This button will be clickable but has no function for this version of the game
         # Clicking this button will do nothing
-        self.button_level_up = tk.Button(self.action_frame, text="Level Up (4¢)", width=20, height=2)
+        button_level_up_img = tk.PhotoImage(file="img\\buy_xp.png")
+        self.button_level_up = tk.Button(self.action_frame, image=button_level_up_img, width=150, height=38, borderwidth=0)
         self.button_level_up.grid(row=0, column=0, padx=5, pady=(3,0))
 
         # Creates a button for refreshing the shop
-        self.button_refresh = tk.Button(self.action_frame, text="Refresh (2¢)", command=self.refresh, width=20, height=2)
+        button_refresh_img = tk.PhotoImage(file="img\\refresh.png")
+        self.button_refresh = tk.Button(self.action_frame, image=button_refresh_img, command=self.refresh, width=150, height=38, borderwidth=0)
         self.button_refresh.grid(row=1, column=0, padx=5, pady=3)
 
         # Creates and displays the units in the shop
@@ -336,6 +338,7 @@ class ThinkFastGUI:
         if self.button_refresh.cget("state") not in "disabled":
             self.refresh()
 
+    # Note: Make sure to unbind all buy binds and then rebind them manually
     def refresh(self, event=None):
         print("refresh")
         self.user_gold -= 2
@@ -392,6 +395,7 @@ class ThinkFastGUI:
         bought = tk.PhotoImage(file="img\empty.png")
         element.config(image=bought)
         element.image = bought
+        element.unbind("<Button-1>")
         print("buy unit")
 
     # Function to update game frame based on user inputted values
