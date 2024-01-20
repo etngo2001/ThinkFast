@@ -37,7 +37,7 @@ class ThinkFastGUI:
         self.scoreboard_frame = tk.Frame(self.window, bg="black")
 
         # Loads the landing page for users
-        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
+        self.game_frame.pack(fill=tk.BOTH, expand=True)
 
         # Below are the elements of the landing_frame
 
@@ -312,15 +312,15 @@ class ThinkFastGUI:
         self.gold.pack()
 
         # Handles processing and labelling unit odds based on user's chosen level
-        self.one_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="dimgray")
+        self.one_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="#c3c3c3")
         self.one_cost_odds.grid(row=0, column=0)
-        self.two_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="green")
+        self.two_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="#22b14c")
         self.two_cost_odds.grid(row=0, column=1)
-        self.three_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="darkblue")
+        self.three_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="#3f48cc")
         self.three_cost_odds.grid(row=0, column=2)
-        self.four_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="purple")
+        self.four_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="#a349a4")
         self.four_cost_odds.grid(row=0, column=3)
-        self.five_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="orange")
+        self.five_cost_odds = tk.Label(self.unit_odds_frame, font=("Ariel", 8), foreground="#ff7f27")
         self.five_cost_odds.grid(row=0, column=4)
 
         # Below are the elements of the scoreboard_frame
