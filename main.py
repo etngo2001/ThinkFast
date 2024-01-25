@@ -9,7 +9,7 @@ class ThinkFastGUI:
 
         self.window = tk.Tk()
         self.window.title("Think Fast Client")
-        self.window_icon = tk.PhotoImage(file='img\logo.png')
+        self.window_icon = tk.PhotoImage(file='img\general\logo.png')
         self.window.iconphoto(True, self.window_icon)
 
         # Set the window size
@@ -24,9 +24,7 @@ class ThinkFastGUI:
         self.window.geometry(f"{window_width}x{window_height}+{x_coordinate}+{y_coordinate}")
         self.window.resizable(False, False)
 
-        # Initializes variables for storage of user input for user level and gold
-        self.user_gold = None
-        self.user_level = None
+        # Initializes variables for user time and the start time
         self.user_time = None
         self.start_time = None
 
@@ -37,12 +35,12 @@ class ThinkFastGUI:
         self.scoreboard_frame = tk.Frame(self.window, bg="black")
 
         # Loads the landing page for users
-        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
+        self.landing_frame.pack(fill=tk.BOTH, expand=True)
 
         # Below are the elements of the landing_frame
 
         # Creates a label to display the background of the landing page
-        self.homepage_icon = tk.PhotoImage(file="img\cover.png")
+        self.homepage_icon = tk.PhotoImage(file="img\general\cover.png")
         self.homepage = tk.Label(self.landing_frame, image=self.homepage_icon)
         self.homepage.grid(row=0, column=0)
 
@@ -59,7 +57,8 @@ class ThinkFastGUI:
         self.gold_label = tk.Label(self.user_input_frame, text="Enter Desired Gold:", bg="lightgray", pady=10, width=15, anchor=tk.E)
         self.gold_label.grid(row=1, column=0, padx=(10, 0))
 
-        self.gold_entry = tk.Entry(self.user_input_frame, width=25)
+        validate = (self.window.register(self.validate_gold), '%S', '%P')
+        self.gold_entry = tk.Entry(self.user_input_frame, width=25, validate="key", validatecommand=validate)
         self.gold_entry.grid(row=1, column=1, sticky="w", padx=(0,10))
 
         self.time_label = tk.Label(self.user_input_frame, text="Select Time Interval:", bg="lightgray", pady=10, width=15, anchor=tk.E)
@@ -75,36 +74,17 @@ class ThinkFastGUI:
         # Below are the elements of the team_builder_frame
 
         # Creates a label to display the team builder title image
-        self.team_builder_img = tk.PhotoImage(file="img\\team_builder.png")
+        self.team_builder_img = tk.PhotoImage(file="img\\general\\team_builder.png")
         self.team_builder_title_img = tk.Label(self.team_builder_frame, image=self.team_builder_img, width=640, height=100, background="white")
         self.team_builder_title_img.pack(anchor="nw")
-
-        # Creates a combobox for users to easily change through the different menus of units
-        # sorted by their costs
-        self.unit_selection = ttk.Combobox(self.team_builder_frame, values=["1-costs", "2-costs", "3-costs", "4-costs", "5-costs"], state="readonly")
-        self.unit_selection.place(x=275 , y=150)
-        self.unit_selection.bind("<<ComboboxSelected>>", self.display_units)
-
-        # Labels and images for visibility purposes to help users see the combobox
-        # Also just me messing around
-        yellow_arrow1 = tk.PhotoImage(file="img\\yellow_arrow.png")
-        yellow_arrow2 = tk.PhotoImage(file="img\\yellow_arrow2.png")
-        yellow_arrow3 = tk.PhotoImage(file="img\\yellow_arrow3.png")
-        yellow_arrow4 = tk.PhotoImage(file="img\\yellow_arrow4.png")
-        self.visibility_label = tk.Label(self.team_builder_frame, text="SELECT HERE!!", background="white", font=("Ariel", 8))
-        self.yellow_arrow1_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow1)
-        self.yellow_arrow2_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow2)
-        self.yellow_arrow3_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow3)
-        self.yellow_arrow4_img = tk.Label(self.team_builder_frame, background="white", image=yellow_arrow4)
-        self.visibility_label.place(x=275, y=120)
-        self.yellow_arrow1_img.place(x=350, y=100)
-        self.yellow_arrow2_img.place(x=420, y=160)
-        self.yellow_arrow3_img.place(x=220, y=150)
-        self.yellow_arrow4_img.place(x=220, y=120)
 
         # Creates a frame to hold the champion pool for users to select from
         self.champion_select_frame = tk.Frame(self.team_builder_frame, width=640, height=720, background="white", highlightbackground="gold2", highlightthickness=2)
         self.champion_select_frame.place(x=225, y=200)
+
+        # Create 5 more frames to hold the different costs
+        # Then make loops to populate x champion frames into the cost frames, 3 rows, 5 columns
+        # Then populate champion images in
 
         # Creates individual frames for champion icons and nametages and displays them cleanly in the
         # champion select frame created above
@@ -129,7 +109,7 @@ class ThinkFastGUI:
             self.champion_names.append(champion_name)
 
         # Creates a label for clarity in team building
-        self.arrow_img = tk.PhotoImage(file="img\\arrow.png")
+        self.arrow_img = tk.PhotoImage(file="img\\general\\arrow.png")
         self.arrow_img_label = tk.Label(self.team_builder_frame, image=self.arrow_img, background="white")
         self.arrow_img_label.place(x=550, y=260)
 
@@ -138,7 +118,7 @@ class ThinkFastGUI:
         self.team_select_frame.place(x=865, y=265)
 
         # Creates a label for visibility
-        self.user_team_img = tk.PhotoImage(file="img\\your_team.png")
+        self.user_team_img = tk.PhotoImage(file="img\\general\\your_team.png")
         self.user_team = tk.Label(self.team_builder_frame, background="white", image=self.user_team_img)
         self.user_team.place(x=825, y=125)
 
@@ -153,7 +133,7 @@ class ThinkFastGUI:
         # Creates a button to continue to the next part of the game
         self.warning_label = tk.Label(self.team_builder_frame, text= "WARNING!! The game starts the moment you press this button. Be ready!", font=("Ariel", 8), background="yellow")
         self.warning_label.place(x=820, y=600)
-        self.warning_arrow_img = tk.PhotoImage(file="img\\arrow2.png")
+        self.warning_arrow_img = tk.PhotoImage(file="img\\general\\arrow2.png")
         self.warning_arrow = tk.Label(self.team_builder_frame, image=self.warning_arrow_img, background="white")
         self.warning_arrow.place(x=1020, y= 620)
         self.to_game_button = tk.Button(self.team_builder_frame, text="START!", command=self.to_game, width=10, height=2)
@@ -189,12 +169,12 @@ class ThinkFastGUI:
         # Creates a button for spending gold to level up
         # This button will be clickable but has no function for this version of the game
         # Clicking this button will do nothing
-        button_level_up_img = tk.PhotoImage(file="img\\buy_xp.png")
+        button_level_up_img = tk.PhotoImage(file="img\\general\\buy_xp.png")
         self.button_level_up = tk.Button(self.action_frame, image=button_level_up_img, width=150, height=38, borderwidth=0)
         self.button_level_up.grid(row=0, column=0, padx=5, pady=(3,0))
 
         # Creates a button for refreshing the shop
-        button_refresh_img = tk.PhotoImage(file="img\\refresh.png")
+        button_refresh_img = tk.PhotoImage(file="img\\general\\refresh.png")
         self.button_refresh = tk.Button(self.action_frame, image=button_refresh_img, command=self.refresh, width=150, height=38, borderwidth=0)
         self.button_refresh.grid(row=1, column=0, padx=5, pady=3)
 
@@ -233,6 +213,16 @@ class ThinkFastGUI:
         # self.start_timer()
         self.window.mainloop()
 
+    # Handles user input to the desired gold entry box to limit the entry value to an integer or
+    # the string 'inf' for infinity
+    def validate_gold(self, char, entry_value):
+        input_i = char.lower() == 'i' and entry_value.lower() == "i"
+        input_n = char.lower() == 'n' and entry_value.lower() == "in"
+        input_f = char.lower() == 'f' and entry_value.lower() == "inf"
+        backspace = char == "" or (char == 'i' and entry_value.lower() == "") or (char == 'n' and entry_value.lower() == "i") or (char == 'f' and entry_value.lower() == "in")
+        num = char.isdigit() and 'i' not in entry_value.lower()
+        return num or backspace or input_i or input_n or input_f
+
     # Handles the hotkey for refreshing the shop
     def refresh_shortcut(self, event=None):
         if self.button_refresh.cget("state") not in "disabled":
@@ -249,6 +239,16 @@ class ThinkFastGUI:
 
     def populate_shop(self):
         print("populating")
+
+    # All dunctions to handle team builder selection and deselection and population
+    def select_unit(self):
+        print("selected")
+
+    def deselect_unit(self):
+        print("deselected")
+
+    def populate_team_builder(self):
+        print("populated")
 
     # Functions to handle the countdown timer
     def start_timer(self, event=None):
@@ -272,10 +272,6 @@ class ThinkFastGUI:
         nice_seconds = f"{seconds:.2f}"
         return nice_seconds
 
-    # Funtion to display units in the team builder
-    def display_units(self, event):
-        print(f"displaying {event.widget.get()}")
-
     # Functions to handle frame switching
     def to_team_planner(self, event=None):
         self.update_game_values()
@@ -284,6 +280,7 @@ class ThinkFastGUI:
         print("To Team Planner")
 
     def to_game(self, event=None):
+        self.populate_shop()
         self.start_timer()
         self.team_builder_frame.pack_forget()
         self.game_frame.pack(fill=tk.BOTH, expand=True)
@@ -296,7 +293,7 @@ class ThinkFastGUI:
 
     # Function to handle buying a unit from the shop
     def buy_unit(self, element):
-        bought = tk.PhotoImage(file="img\empty.png")
+        bought = tk.PhotoImage(file="img\general\empty.png")
         element.config(image=bought)
         element.image = bought
         element.unbind("<Button-1>")
@@ -304,14 +301,17 @@ class ThinkFastGUI:
 
     # Function to update game frame based on user inputted values
     def update_game_values(self):
-        self.user_gold = int(self.gold_entry.get())
-        self.user_level = self.level_combobox.get()
+        if(self.gold_entry.get().lower() == 'inf'):
+            user_gold = "∞"
+        else:
+            user_gold = self.gold_entry.get()
+        user_level = self.level_combobox.get()
         self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) + 0.5 # lol
 
-        unit_cost_odds = tft.tft_level_odds[int(self.user_level)]
+        unit_cost_odds = tft.tft_level_odds[int(user_level)]
 
-        self.level.config(text=f"Level {self.user_level}")
-        self.gold.config(text=f"{self.user_gold}¢")
+        self.level.config(text=f"Level {user_level}")
+        self.gold.config(text=f"{user_gold}¢")
         self.timer_label.config(text=f"{self.user_time}")
 
         self.one_cost_odds.config(text=f"{unit_cost_odds[0]}%")
@@ -319,7 +319,5 @@ class ThinkFastGUI:
         self.three_cost_odds.config(text=f"{unit_cost_odds[2]}%")
         self.four_cost_odds.config(text=f"{unit_cost_odds[3]}%")
         self.five_cost_odds.config(text=f"{unit_cost_odds[4]}%")
-
-        self.populate_shop()
 
 ThinkFastGUI()
