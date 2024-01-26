@@ -28,6 +28,7 @@ class ThinkFastGUI:
         self.window.resizable(False, False)
 
         # Initializes variables for user time and the start time
+        self.user_gold = None
         self.user_time = None
         self.start_time = None
         self.one_cost = {}
@@ -37,6 +38,10 @@ class ThinkFastGUI:
         self.five_cost = {}
         self.costs= [self.one_cost, self.two_cost, self.three_cost, self.four_cost, self.five_cost]
         self.target_team = []
+        self.shops = []
+        self.shop_count = 0
+        self.bought_units = []
+        self.seen_units = []
 
         # Creates the different frames for the game
         self.landing_frame = tk.Frame(self.window, bg="black")
@@ -253,23 +258,26 @@ class ThinkFastGUI:
         num = char.isdigit() and 'i' not in entry_value.lower()
         return num or backspace or input_i or input_n or input_f
 
+    def check_gold_state(self):
+        if int(self.user_gold) < 2:
+            self.button_refresh.config(state="disabled")
+
     # Handles the hotkey for refreshing the shop
-    def refresh_shortcut(self):
+    def refresh_shortcut(self, event=None):
         if self.button_refresh.cget("state") not in "disabled":
             self.refresh()
 
     # Note: Make sure to unbind all buy binds and then rebind them manually
     def refresh(self):
-        print("refresh")
-        self.user_gold -= 2
+        for i in range(5):
+            self.shop_units[i].unbind("<Button-1>")
+        if self.user_gold != "∞":
+            self.user_gold = int(self.user_gold) - 2
+            self.check_gold_state()
         self.gold.config(text=f"{self.user_gold}¢")
+        self.shop_count += 1
         self.populate_shop()
-        if (self.user_gold < 2):
-            self.button_refresh.config(state=tk.DISABLED)
-
-    def populate_shop(self):
-        print("populating")
-
+        
     # All functions to handle team builder selection and deselection
     def select_unit(self, element):
         for i in range(len(self.teammates)):
@@ -339,44 +347,35 @@ class ThinkFastGUI:
         nice_seconds = f"{seconds:.2f}"
         return nice_seconds
 
-    # Functions to handle frame switching
-    def to_team_planner(self):
-        self.update_game_values()
-        self.landing_frame.pack_forget()
-        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
-
-    def to_game(self):
-        self.create_team()
-        self.populate_shop()
-        self.start_timer()
-        self.team_builder_frame.pack_forget()
-        self.game_frame.pack(fill=tk.BOTH, expand=True)
-
-    def to_scoreboard(self):
-        self.game_frame.pack_forget()
-        self.scoreboard_frame.pack(fill=tk.BOTH, expand=True)
-
     # Function to handle buying a unit from the shop
     def buy_unit(self, element):
+        cost = self.find_champion(element.name).get_cost()
+        if (int(self.user_gold) < int(cost)):
+            return
+        else:
+            self.user_gold = int(self.user_gold) - int(cost)
+            self.gold.config(text=f"{self.user_gold}¢")
+            self.bought_units.append(element.name)
+            self.check_gold_state()
         bought = tk.PhotoImage(file="img\general\empty.png")
         element.config(image=bought)
         element.image = bought
         element.unbind("<Button-1>")
-        print("buy unit")
+        element.name = None
 
     # Function to update game frame based on user inputted values
     def update_game_values(self):
         if(self.gold_entry.get().lower() == 'inf'):
-            user_gold = "∞"
+            self.user_gold = "∞"
         else:
-            user_gold = self.gold_entry.get()
+            self.user_gold = self.gold_entry.get()
         user_level = self.level_combobox.get()
         self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) + 0.3 # lol
 
         unit_cost_odds = tft.tft_level_odds[int(user_level)]
 
         self.level.config(text=f"Level {user_level}")
-        self.gold.config(text=f"{user_gold}¢")
+        self.gold.config(text=f"{self.user_gold}¢")
         self.timer_label.config(text=f"{self.user_time}")
 
         self.one_cost_odds.config(text=f"{unit_cost_odds[0]}%")
@@ -384,6 +383,43 @@ class ThinkFastGUI:
         self.three_cost_odds.config(text=f"{unit_cost_odds[2]}%")
         self.four_cost_odds.config(text=f"{unit_cost_odds[3]}%")
         self.five_cost_odds.config(text=f"{unit_cost_odds[4]}%")
+
+        self.generate_shops(unit_cost_odds)
+
+    def generate_shops(self, odds):
+        if self.user_gold == "∞":
+            for i in range(50):
+                self.generate_shop(odds)
+        else:
+            for i in range(int(self.user_gold)//2 + 1):
+                self.generate_shop(odds)
+    
+    def generate_shop(self, odds):
+        shop=[]
+        for j in range(5):
+            roll_cost = random.uniform(0, 1) * 100
+            match roll_cost:
+                case cost if cost <= odds[0]:
+                    shop.append(random.choice(list(self.one_cost)))
+                case cost if cost <= odds[0] + odds[1]:
+                    shop.append(random.choice(list(self.two_cost)))
+                case cost if cost <= odds[0] + odds[1] + odds[2]:
+                    shop.append(random.choice(list(self.three_cost)))
+                case cost if cost <= odds[0] + odds[1] + odds[2] + odds[3]:
+                    shop.append(random.choice(list(self.four_cost)))
+                case cost if cost <= odds[0] + odds[1] + odds[2] + odds[3] + odds[4]:
+                    shop.append(random.choice(list(self.five_cost)))
+        self.shops.append(shop)
+
+    def populate_shop(self):
+        for i in range(len(self.shops[self.shop_count])):
+            img_path = self.find_champion(self.shops[self.shop_count][i]).get_img_path()
+            new_img = tk.PhotoImage(file=img_path)
+            self.shop_units[i].config(image=new_img)
+            self.shop_units[i].image = new_img
+            self.shop_units[i].name = self.find_champion(self.shops[self.shop_count][i]).get_name()
+            self.shop_units[i].bind("<Button-1>", lambda event, label=self.shop_units[i]: self.buy_unit(label))
+            self.seen_units.append(self.find_champion(self.shops[self.shop_count][i]).get_name())
     
     # Below are functions to handle units on game load
     def load_units(self):
@@ -402,5 +438,24 @@ class ThinkFastGUI:
                     self.four_cost[data[unit]['name']] = temp
                 case "5":
                     self.five_cost[data[unit]['name']] = temp
+
+    # Functions to handle frame switching
+    def to_team_planner(self):
+        self.update_game_values()
+        self.landing_frame.pack_forget()
+        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
+
+    def to_game(self):
+        self.create_team()
+        self.populate_shop()
+        self.start_timer()
+        self.team_builder_frame.pack_forget()
+        self.game_frame.pack(fill=tk.BOTH, expand=True)
+
+    def to_scoreboard(self):
+        self.game_frame.pack_forget()
+        self.scoreboard_frame.pack(fill=tk.BOTH, expand=True)
+        print(self.seen_units)
+        print(self.bought_units)
 
 ThinkFastGUI()
