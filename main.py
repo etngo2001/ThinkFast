@@ -349,17 +349,23 @@ class ThinkFastGUI:
 
     # Function to handle buying a unit from the shop
     def buy_unit(self, element):
-        cost = self.find_champion(element.name).get_cost()
-        if (int(self.user_gold) < int(cost)):
-            return
+        if self.user_gold == "∞":
+            self.buy_unit_helper(element)
         else:
-            self.user_gold = int(self.user_gold) - int(cost)
-            self.gold.config(text=f"{self.user_gold}¢")
-            self.bought_units.append(element.name)
-            self.check_gold_state()
-        bought = tk.PhotoImage(file="img\general\empty.png")
-        element.config(image=bought)
-        element.image = bought
+            cost = self.find_champion(element.name).get_cost()
+            if (int(self.user_gold) < int(cost)):
+                return
+            else:
+                self.user_gold = int(self.user_gold) - int(cost)
+                self.gold.config(text=f"{self.user_gold}¢")
+                self.bought_units.append(element.name)
+                self.check_gold_state()
+            self.buy_unit_helper(element)
+    
+    def buy_unit_helper(self, element):
+        empty_img = tk.PhotoImage(file="img\general\empty.png")
+        element.config(image=empty_img)
+        element.image = empty_img
         element.unbind("<Button-1>")
         element.name = None
 
@@ -388,7 +394,7 @@ class ThinkFastGUI:
 
     def generate_shops(self, odds):
         if self.user_gold == "∞":
-            for i in range(50):
+            for i in range(1000):
                 self.generate_shop(odds)
         else:
             for i in range(int(self.user_gold)//2 + 1):
