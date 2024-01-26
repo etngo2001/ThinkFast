@@ -1,9 +1,10 @@
 import time
 import random
+import json
 import tkinter as tk
 from tkinter import ttk
 import tft
-import unit
+from unit import Unit
 
 class ThinkFastGUI:
     def __init__(self):
@@ -29,6 +30,12 @@ class ThinkFastGUI:
         # Initializes variables for user time and the start time
         self.user_time = None
         self.start_time = None
+        self.one_cost = {}
+        self.two_cost = {}
+        self.three_cost = {}
+        self.four_cost = {}
+        self.five_cost = {}
+        self.costs= [self.one_cost, self.two_cost, self.three_cost, self.four_cost, self.five_cost]
 
         # Creates the different frames for the game
         self.landing_frame = tk.Frame(self.window, bg="black")
@@ -38,6 +45,9 @@ class ThinkFastGUI:
 
         # Loads the landing page for users
         self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
+
+        # Loads units on start
+        self.load_units()
 
         # Below are the elements of the landing_frame
 
@@ -82,12 +92,13 @@ class ThinkFastGUI:
 
         # Creates a frame to hold the champion pool for users to select from
         # Contains a scrollable canvas
-        self.champion_select_frame = tk.Frame(self.team_builder_frame, width=400, height=500, background="white", highlightbackground="gold2", highlightthickness=2)
+        self.champion_select_frame = tk.Frame(self.team_builder_frame, width=420, height=500, background="white", highlightbackground="gold2", highlightthickness=2)
         self.champion_select_frame.place(x=100, y=150)
 
-        self.champion_select_canvas = tk.Canvas(self.champion_select_frame, width=400, height=500, background="white", highlightbackground="gold2", highlightthickness=2, scrollregion=(0,0,400,5000))
+        self.champion_select_canvas = tk.Canvas(self.champion_select_frame, width=420, height=500, background="white", highlightbackground="gold2", highlightthickness=2, scrollregion=(0,0,400,1500))
         self.champion_select_canvas.pack()
-        self.champion_select_canvas.create_line(0,0,400,5000, fill="red", width=10)
+        self.champion_select_canvas.pack_propagate(False)
+
 
         champ_select_scrollbar = ttk.Scrollbar(self.champion_select_canvas, orient='vertical', command=self.champion_select_canvas.yview, style="Vertical.TScrollbar")
         self.champion_select_canvas.config(yscrollcommand=champ_select_scrollbar.set)
@@ -97,28 +108,36 @@ class ThinkFastGUI:
         # Create 5 more frames to hold the different costs
         # Then make loops to populate x champion frames into the cost frames, 3 rows, 5 columns
         # Then populate champion images in
+        self.teamframes = []
+        self.champion_images = [[],[],[],[],[]]
+        self.champion_names = [[],[],[],[],[]]
+        for i in range(5):
+            teamframe = tk.Frame(self.champion_select_canvas, width=400, height=300, background="white")
+            self.champion_select_canvas.create_window((0, i * 300), anchor='nw', window=teamframe)
+            self.teamframes.append(teamframe)
+            teamframe.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
 
-        # Creates individual frames for champion icons and nametages and displays them cleanly in the
-        # champion select frame created above
-        # self.champion_images = []
-        # self.champion_names = []
+            for j in range(len(self.costs[i])):
+                row = j // 5
+                column = j % 5
 
-        # for i in range(13):
-        #     row = i // 3
-        #     column = i % 3
+                champframe = tk.Frame(teamframe, width=50, height=60, background="white")
+                champframe.grid(row=row, column=column, padx=10, pady=(10, 0) if row == 0 else (0, 10))
+                champframe.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
 
-        #     frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
-        #     frame.grid(row=row, column=column, padx=10, pady=(10, 0) if row == 0 else (0, 10))
+                champion_icon = tk.PhotoImage(file=self.costs[i][list(self.costs[i])[j]].get_icon_path())
+                champion_image = tk.Label(champframe, image=champion_icon, width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+                champion_image.image = champion_icon
+                champion_image.grid(row=0, column=0)
+                champion_image.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
+                champion_image.bind("<Button-1>", lambda event, label=champion_image: self.select_unit(label))
 
-        #     champion_image = tk.Label(frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
-        #     champion_image.pack()
+                champion_name = tk.Label(champframe, text=f"{self.costs[i][list(self.costs[i])[j]].get_name()}", background="white", foreground="black")
+                champion_name.grid(row=1, column=0)
+                champion_name.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
 
-        #     champion_name = tk.Label(frame, text=f"test{i + 1}", background="white", foreground="black")
-        #     champion_name.pack()
-
-        #     # Append the created widgets to the arrays
-        #     self.champion_images.append(champion_image)
-        #     self.champion_names.append(champion_name)
+                self.champion_images[i].append(champion_image)
+                self.champion_names[i].append(champion_name)
 
         # Creates a label for clarity in team building
         self.arrow_img = tk.PhotoImage(file="img\\general\\arrow.png")
@@ -253,7 +272,11 @@ class ThinkFastGUI:
         print("populating")
 
     # All dunctions to handle team builder selection and deselection and population
-    def select_unit(self):
+    def select_unit(self, element):
+        selected = tk.PhotoImage(file="img\icons\empty.png")
+        element.config(image=selected)
+        element.image = selected
+        element.unbind("<Button-1>")
         print("selected")
 
     def deselect_unit(self):
@@ -331,5 +354,23 @@ class ThinkFastGUI:
         self.three_cost_odds.config(text=f"{unit_cost_odds[2]}%")
         self.four_cost_odds.config(text=f"{unit_cost_odds[3]}%")
         self.five_cost_odds.config(text=f"{unit_cost_odds[4]}%")
+    
+    # Below are functions to handle units on game load
+    def load_units(self):
+        file = open('set10.json')
+        data = json.load(file)
+        for unit in data:
+            temp = Unit(data[unit]['name'], data[unit]['cost'], data[unit]['img_path'], data[unit]['icon_path'])
+            match data[unit]['cost']:
+                case "1":
+                    self.one_cost[data[unit]['name']] = temp
+                case "2":
+                    self.two_cost[data[unit]['name']] = temp
+                case "3":
+                    self.three_cost[data[unit]['name']] = temp
+                case "4":
+                    self.four_cost[data[unit]['name']] = temp
+                case "5":
+                    self.five_cost[data[unit]['name']] = temp
 
 ThinkFastGUI()

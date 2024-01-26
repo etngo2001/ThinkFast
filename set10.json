@@ -5,6 +5,18 @@
         "img_path": "img\\champions\\Ahri.png",
         "icon_path": "img\\icons\\Ahri.png"
     },
+    "Akali (KDA)": {
+        "name": "Akali (KDA)",
+        "cost": "4",
+        "img_path": "img\\champions\\Akali (KDA).png",
+        "icon_path": "img\\icons\\Akali (KDA).png"
+    },
+    "Akali (TD)": {
+        "name": "Akali (TD)",
+        "cost": "4",
+        "img_path": "img\\champions\\Akali (TD).png",
+        "icon_path": "img\\icons\\Akali (TD).png"
+    },
     "Amumu": {
         "name": "Amumu",
         "cost": "3",
@@ -143,12 +155,6 @@
         "img_path": "img\\champions\\Kayn.png",
         "icon_path": "img\\icons\\Kayn.png"
     },
-    "Akali (KDA)": {
-        "name": "Akali (KDA)",
-        "cost": "4",
-        "img_path": "img\\champions\\Akali (KDA).png",
-        "icon_path": "img\\icons\\Akali (KDA).png"
-    },
     "Kennen": {
         "name": "Kennen",
         "cost": "1",
@@ -274,12 +280,6 @@
         "cost": "1",
         "img_path": "img\\champions\\Taric.png",
         "icon_path": "img\\icons\\Taric.png"
-    },
-    "Akali (TD)": {
-        "name": "Akali (TD)",
-        "cost": "4",
-        "img_path": "img\\champions\\Akali (TD).png",
-        "icon_path": "img\\icons\\Akali (TD).png"
     },
     "Thresh": {
         "name": "Thresh",
