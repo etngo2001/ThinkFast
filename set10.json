@@ -1,0 +1,362 @@
+{
+    "Ahri": {
+        "name": "Ahri",
+        "cost": "4",
+        "img_path": "img\\champions\\Ahri.png",
+        "icon_path": "img\\icons\\Ahri.png"
+    },
+    "Amumu": {
+        "name": "Amumu",
+        "cost": "3",
+        "img_path": "img\\champions\\Amumu.png",
+        "icon_path": "img\\icons\\Amumu.png"
+    },
+    "Annie": {
+        "name": "Annie",
+        "cost": "1",
+        "img_path": "img\\champions\\Annie.png",
+        "icon_path": "img\\icons\\Annie.png"
+    },
+    "Aphelios": {
+        "name": "Aphelios",
+        "cost": "2",
+        "img_path": "img\\champions\\Aphelios.png",
+        "icon_path": "img\\icons\\Aphelios.png"
+    },
+    "Bard": {
+        "name": "Bard",
+        "cost": "2",
+        "img_path": "img\\champions\\Bard.png",
+        "icon_path": "img\\icons\\Bard.png"
+    },
+    "Blitzcrank": {
+        "name": "Blitzcrank",
+        "cost": "4",
+        "img_path": "img\\champions\\Blitzcrank.png",
+        "icon_path": "img\\icons\\Blitzcrank.png"
+    },
+    "Caitlyn": {
+        "name": "Caitlyn",
+        "cost": "4",
+        "img_path": "img\\champions\\Caitlyn.png",
+        "icon_path": "img\\icons\\Caitlyn.png"
+    },
+    "Corki": {
+        "name": "Corki",
+        "cost": "1",
+        "img_path": "img\\champions\\Corki.png",
+        "icon_path": "img\\icons\\Corki.png"
+    },
+    "Ekko": {
+        "name": "Ekko",
+        "cost": "3",
+        "img_path": "img\\champions\\Ekko.png",
+        "icon_path": "img\\icons\\Ekko.png"
+    },
+    "Evelynn": {
+        "name": "Evelynn",
+        "cost": "1",
+        "img_path": "img\\champions\\Evelynn.png",
+        "icon_path": "img\\icons\\Evelynn.png"
+    },
+    "Ezreal": {
+        "name": "Ezreal",
+        "cost": "4",
+        "img_path": "img\\champions\\Ezreal.png",
+        "icon_path": "img\\icons\\Ezreal.png"
+    },
+    "Garen": {
+        "name": "Garen",
+        "cost": "2",
+        "img_path": "img\\champions\\Garen.png",
+        "icon_path": "img\\icons\\Garen.png"
+    },
+    "Gnar": {
+        "name": "Gnar",
+        "cost": "2",
+        "img_path": "img\\champions\\Gnar.png",
+        "icon_path": "img\\icons\\Gnar.png"
+    },
+    "Gragas": {
+        "name": "Gragas",
+        "cost": "2",
+        "img_path": "img\\champions\\Gragas.png",
+        "icon_path": "img\\icons\\Gragas.png"
+    },
+    "Illaoi": {
+        "name": "Illaoi",
+        "cost": "5",
+        "img_path": "img\\champions\\Illaoi.png",
+        "icon_path": "img\\icons\\Illaoi.png"
+    },
+    "Jax": {
+        "name": "Jax",
+        "cost": "2",
+        "img_path": "img\\champions\\Jax.png",
+        "icon_path": "img\\icons\\Jax.png"
+    },
+    "Jhin": {
+        "name": "Jhin",
+        "cost": "5",
+        "img_path": "img\\champions\\Jhin.png",
+        "icon_path": "img\\icons\\Jhin.png"
+    },
+    "Jinx": {
+        "name": "Jinx",
+        "cost": "1",
+        "img_path": "img\\champions\\Jinx.png",
+        "icon_path": "img\\icons\\Jinx.png"
+    },
+    "K'Sante": {
+        "name": "K'Sante",
+        "cost": "1",
+        "img_path": "img\\champions\\K'Sante.png",
+        "icon_path": "img\\icons\\K'Sante.png"
+    },
+    "Kai'Sa": {
+        "name": "Kai'Sa",
+        "cost": "2",
+        "img_path": "img\\champions\\Kai'Sa.png",
+        "icon_path": "img\\icons\\Kai'Sa.png"
+    },
+    "Karthus": {
+        "name": "Karthus",
+        "cost": "4",
+        "img_path": "img\\champions\\Karthus.png",
+        "icon_path": "img\\icons\\Karthus.png"
+    },
+    "Katarina": {
+        "name": "Katarina",
+        "cost": "2",
+        "img_path": "img\\champions\\Katarina.png",
+        "icon_path": "img\\icons\\Katarina.png"
+    },
+    "Kayle": {
+        "name": "Kayle",
+        "cost": "2",
+        "img_path": "img\\champions\\Kayle.png",
+        "icon_path": "img\\icons\\Kayle.png"
+    },
+    "Kayn": {
+        "name": "Kayn",
+        "cost": "5",
+        "img_path": "img\\champions\\Kayn.png",
+        "icon_path": "img\\icons\\Kayn.png"
+    },
+    "Akali (KDA)": {
+        "name": "Akali (KDA)",
+        "cost": "4",
+        "img_path": "img\\champions\\Akali (KDA).png",
+        "icon_path": "img\\icons\\Akali (KDA).png"
+    },
+    "Kennen": {
+        "name": "Kennen",
+        "cost": "1",
+        "img_path": "img\\champions\\Kennen.png",
+        "icon_path": "img\\icons\\Kennen.png"
+    },
+    "Lillia": {
+        "name": "Lillia",
+        "cost": "1",
+        "img_path": "img\\champions\\Lillia.png",
+        "icon_path": "img\\icons\\Lillia.png"
+    },
+    "Lucian": {
+        "name": "Lucian",
+        "cost": "5",
+        "img_path": "img\\champions\\Lucian.png",
+        "icon_path": "img\\icons\\Lucian.png"
+    },
+    "Lulu": {
+        "name": "Lulu",
+        "cost": "3",
+        "img_path": "img\\champions\\Lulu.png",
+        "icon_path": "img\\icons\\Lulu.png"
+    },
+    "Lux": {
+        "name": "Lux",
+        "cost": "3",
+        "img_path": "img\\champions\\Lux.png",
+        "icon_path": "img\\icons\\Lux.png"
+    },
+    "Miss Fortune": {
+        "name": "Miss Fortune",
+        "cost": "5",
+        "img_path": "img\\champions\\Miss Fortune.png",
+        "icon_path": "img\\icons\\Miss Fortune.png"
+    },
+    "Mordekaiser": {
+        "name": "Mordekaiser",
+        "cost": "3",
+        "img_path": "img\\champions\\Mordekaiser.png",
+        "icon_path": "img\\icons\\Mordekaiser.png"
+    },
+    "Nami": {
+        "name": "Nami",
+        "cost": "1",
+        "img_path": "img\\champions\\Nami.png",
+        "icon_path": "img\\icons\\Nami.png"
+    },
+    "Neeko": {
+        "name": "Neeko",
+        "cost": "3",
+        "img_path": "img\\champions\\Neeko.png",
+        "icon_path": "img\\icons\\Neeko.png"
+    },
+    "Olaf": {
+        "name": "Olaf",
+        "cost": "1",
+        "img_path": "img\\champions\\Olaf.png",
+        "icon_path": "img\\icons\\Olaf.png"
+    },
+    "Pantheon": {
+        "name": "Pantheon",
+        "cost": "2",
+        "img_path": "img\\champions\\Pantheon.png",
+        "icon_path": "img\\icons\\Pantheon.png"
+    },
+    "Poppy": {
+        "name": "Poppy",
+        "cost": "4",
+        "img_path": "img\\champions\\Poppy.png",
+        "icon_path": "img\\icons\\Poppy.png"
+    },
+    "Qiyana": {
+        "name": "Qiyana",
+        "cost": "5",
+        "img_path": "img\\champions\\Qiyana.png",
+        "icon_path": "img\\icons\\Qiyana.png"
+    },
+    "Riven": {
+        "name": "Riven",
+        "cost": "3",
+        "img_path": "img\\champions\\Riven.png",
+        "icon_path": "img\\icons\\Riven.png"
+    },
+    "Samira": {
+        "name": "Samira",
+        "cost": "3",
+        "img_path": "img\\champions\\Samira.png",
+        "icon_path": "img\\icons\\Samira.png"
+    },
+    "Senna": {
+        "name": "Senna",
+        "cost": "2",
+        "img_path": "img\\champions\\Senna.png",
+        "icon_path": "img\\icons\\Senna.png"
+    },
+    "Seraphine": {
+        "name": "Seraphine",
+        "cost": "2",
+        "img_path": "img\\champions\\Seraphine.png",
+        "icon_path": "img\\icons\\Seraphine.png"
+    },
+    "Sett": {
+        "name": "Sett",
+        "cost": "3",
+        "img_path": "img\\champions\\Sett.png",
+        "icon_path": "img\\icons\\Sett.png"
+    },
+    "Sona": {
+        "name": "Sona",
+        "cost": "5",
+        "img_path": "img\\champions\\Sona.png",
+        "icon_path": "img\\icons\\Sona.png"
+    },
+    "Tahm Kench": {
+        "name": "Tahm Kench",
+        "cost": "1",
+        "img_path": "img\\champions\\Tahm Kench.png",
+        "icon_path": "img\\icons\\Tahm Kench.png"
+    },
+    "Taric": {
+        "name": "Taric",
+        "cost": "1",
+        "img_path": "img\\champions\\Taric.png",
+        "icon_path": "img\\icons\\Taric.png"
+    },
+    "Akali (TD)": {
+        "name": "Akali (TD)",
+        "cost": "4",
+        "img_path": "img\\champions\\Akali (TD).png",
+        "icon_path": "img\\icons\\Akali (TD).png"
+    },
+    "Thresh": {
+        "name": "Thresh",
+        "cost": "4",
+        "img_path": "img\\champions\\Thresh.png",
+        "icon_path": "img\\icons\\Thresh.png"
+    },
+    "Twisted Fate": {
+        "name": "Twisted Fate",
+        "cost": "4",
+        "img_path": "img\\champions\\Twisted Fate.png",
+        "icon_path": "img\\icons\\Twisted Fate.png"
+    },
+    "Twitch": {
+        "name": "Twitch",
+        "cost": "2",
+        "img_path": "img\\champions\\Twitch.png",
+        "icon_path": "img\\icons\\Twitch.png"
+    },
+    "Urgot": {
+        "name": "Urgot",
+        "cost": "3",
+        "img_path": "img\\champions\\Urgot.png",
+        "icon_path": "img\\icons\\Urgot.png"
+    },
+    "Vex": {
+        "name": "Vex",
+        "cost": "3",
+        "img_path": "img\\champions\\Vex.png",
+        "icon_path": "img\\icons\\Vex.png"
+    },
+    "Vi": {
+        "name": "Vi",
+        "cost": "1",
+        "img_path": "img\\champions\\Vi.png",
+        "icon_path": "img\\icons\\Vi.png"
+    },
+    "Viego": {
+        "name": "Viego",
+        "cost": "4",
+        "img_path": "img\\champions\\Viego.png",
+        "icon_path": "img\\icons\\Viego.png"
+    },
+    "Yasuo": {
+        "name": "Yasuo",
+        "cost": "1",
+        "img_path": "img\\champions\\Yasuo.png",
+        "icon_path": "img\\icons\\Yasuo.png"
+    },
+    "Yone": {
+        "name": "Yone",
+        "cost": "3",
+        "img_path": "img\\champions\\Yone.png",
+        "icon_path": "img\\icons\\Yone.png"
+    },
+    "Yorick": {
+        "name": "Yorick",
+        "cost": "5",
+        "img_path": "img\\champions\\Yorick.png",
+        "icon_path": "img\\icons\\Yorick.png"
+    },
+    "Zac": {
+        "name": "Zac",
+        "cost": "4",
+        "img_path": "img\\champions\\Zac.png",
+        "icon_path": "img\\icons\\Zac.png"
+    },
+    "Zed": {
+        "name": "Zed",
+        "cost": "4",
+        "img_path": "img\\champions\\Zed.png",
+        "icon_path": "img\\icons\\Zed.png"
+    },
+    "Ziggs": {
+        "name": "Ziggs",
+        "cost": "5",
+        "img_path": "img\\champions\\Ziggs.png",
+        "icon_path": "img\\icons\\Ziggs.png"
+    }
+}

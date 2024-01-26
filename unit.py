@@ -1,13 +1,18 @@
 class Unit:
-    def __init__(self, name, cost, level, origin, group):
+    def __init__(self, name, cost, img_path, icon_path):
         self.name = name
         self.cost = cost
-        self.level = level
-        self.origin = origin
-        self.group = group
-
-    def __str__(self):
-        return f"{self.name} {self.cost} {self.level} {self.origin} {self.group}"
+        self.img_path = img_path
+        self.icon_path = icon_path
     
-    def levelUp(self, level):
-        self.level += 1
+    def get_name(self):
+        return self.name
+    
+    def get_cost(self):
+        return self.cost
+    
+    def get_img_path(self):
+        return self.img_path
+    
+    def get_icon_path(self):
+        return self.icon_path

@@ -3,6 +3,7 @@ import random
 import tkinter as tk
 from tkinter import ttk
 import tft
+import unit
 
 class ThinkFastGUI:
     def __init__(self):
