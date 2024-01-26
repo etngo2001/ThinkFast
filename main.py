@@ -42,6 +42,7 @@ class ThinkFastGUI:
         self.shop_count = 0
         self.bought_units = []
         self.seen_units = []
+        self.apm = 0
 
         # Creates the different frames for the game
         self.landing_frame = tk.Frame(self.window, bg="black")
@@ -242,9 +243,6 @@ class ThinkFastGUI:
 
         # Below are the elements of the scoreboard_frame
 
-        # Sets a hotkey for refreshing the shop
-        self.window.bind("<KeyPress-d>", self.refresh_shortcut)
-
         # self.start_timer()
         self.window.mainloop()
 
@@ -269,6 +267,7 @@ class ThinkFastGUI:
 
     # Note: Make sure to unbind all buy binds and then rebind them manually
     def refresh(self):
+        self.apm_counter()
         for i in range(5):
             self.shop_units[i].unbind("<Button-1>")
         if self.user_gold != "∞":
@@ -354,15 +353,16 @@ class ThinkFastGUI:
         else:
             cost = self.find_champion(element.name).get_cost()
             if (int(self.user_gold) < int(cost)):
-                return
+                pass
             else:
                 self.user_gold = int(self.user_gold) - int(cost)
                 self.gold.config(text=f"{self.user_gold}¢")
                 self.bought_units.append(element.name)
                 self.check_gold_state()
-            self.buy_unit_helper(element)
+                self.buy_unit_helper(element)
     
     def buy_unit_helper(self, element):
+        self.apm_counter()
         empty_img = tk.PhotoImage(file="img\general\empty.png")
         element.config(image=empty_img)
         element.image = empty_img
@@ -445,6 +445,14 @@ class ThinkFastGUI:
                 case "5":
                     self.five_cost[data[unit]['name']] = temp
 
+    # Functions to handle the scoreboard, ensure that users don't start the game before pressing the start button
+    def game_on(self):
+        # Sets a hotkey for refreshing the shop
+        self.window.bind("<KeyPress-d>", self.refresh_shortcut)
+    
+    def apm_counter(self, event=None):
+        self.apm += 1
+
     # Functions to handle frame switching
     def to_team_planner(self):
         self.update_game_values()
@@ -455,13 +463,13 @@ class ThinkFastGUI:
         self.create_team()
         self.populate_shop()
         self.start_timer()
+        self.game_on()
         self.team_builder_frame.pack_forget()
         self.game_frame.pack(fill=tk.BOTH, expand=True)
 
     def to_scoreboard(self):
+        print(self.apm)
         self.game_frame.pack_forget()
         self.scoreboard_frame.pack(fill=tk.BOTH, expand=True)
-        print(self.seen_units)
-        print(self.bought_units)
 
 ThinkFastGUI()
