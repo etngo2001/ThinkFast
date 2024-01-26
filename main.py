@@ -11,6 +11,7 @@ class ThinkFastGUI:
         self.window.title("Think Fast Client")
         self.window_icon = tk.PhotoImage(file='img\general\logo.png')
         self.window.iconphoto(True, self.window_icon)
+        style=ttk.Style()
 
         # Set the window size
         window_width = 1280
@@ -35,7 +36,7 @@ class ThinkFastGUI:
         self.scoreboard_frame = tk.Frame(self.window, bg="black")
 
         # Loads the landing page for users
-        self.landing_frame.pack(fill=tk.BOTH, expand=True)
+        self.team_builder_frame.pack(fill=tk.BOTH, expand=True)
 
         # Below are the elements of the landing_frame
 
@@ -79,8 +80,18 @@ class ThinkFastGUI:
         self.team_builder_title_img.pack(anchor="nw")
 
         # Creates a frame to hold the champion pool for users to select from
-        self.champion_select_frame = tk.Frame(self.team_builder_frame, width=640, height=720, background="white", highlightbackground="gold2", highlightthickness=2)
-        self.champion_select_frame.place(x=225, y=200)
+        # Contains a scrollable canvas
+        self.champion_select_frame = tk.Frame(self.team_builder_frame, width=400, height=500, background="white", highlightbackground="gold2", highlightthickness=2)
+        self.champion_select_frame.place(x=100, y=150)
+
+        self.champion_select_canvas = tk.Canvas(self.champion_select_frame, width=400, height=500, background="white", highlightbackground="gold2", highlightthickness=2, scrollregion=(0,0,400,5000))
+        self.champion_select_canvas.pack()
+        self.champion_select_canvas.create_line(0,0,400,5000, fill="red", width=10)
+
+        champ_select_scrollbar = ttk.Scrollbar(self.champion_select_canvas, orient='vertical', command=self.champion_select_canvas.yview, style="Vertical.TScrollbar")
+        self.champion_select_canvas.config(yscrollcommand=champ_select_scrollbar.set)
+        # champ_select_scrollbar.place(relx=1, rely=0, relheight=1, anchor='ne') # hidden scroll bar
+        self.champion_select_canvas.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
 
         # Create 5 more frames to hold the different costs
         # Then make loops to populate x champion frames into the cost frames, 3 rows, 5 columns
@@ -88,25 +99,25 @@ class ThinkFastGUI:
 
         # Creates individual frames for champion icons and nametages and displays them cleanly in the
         # champion select frame created above
-        self.champion_images = []
-        self.champion_names = []
+        # self.champion_images = []
+        # self.champion_names = []
 
-        for i in range(13):
-            row = i // 3
-            column = i % 3
+        # for i in range(13):
+        #     row = i // 3
+        #     column = i % 3
 
-            frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
-            frame.grid(row=row, column=column, padx=10, pady=(10, 0) if row == 0 else (0, 10))
+        #     frame = tk.Frame(self.champion_select_frame, width=50, height=60, background="white")
+        #     frame.grid(row=row, column=column, padx=10, pady=(10, 0) if row == 0 else (0, 10))
 
-            champion_image = tk.Label(frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
-            champion_image.pack()
+        #     champion_image = tk.Label(frame, image=tk.PhotoImage(), width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
+        #     champion_image.pack()
 
-            champion_name = tk.Label(frame, text=f"test{i + 1}", background="white", foreground="black")
-            champion_name.pack()
+        #     champion_name = tk.Label(frame, text=f"test{i + 1}", background="white", foreground="black")
+        #     champion_name.pack()
 
-            # Append the created widgets to the arrays
-            self.champion_images.append(champion_image)
-            self.champion_names.append(champion_name)
+        #     # Append the created widgets to the arrays
+        #     self.champion_images.append(champion_image)
+        #     self.champion_names.append(champion_name)
 
         # Creates a label for clarity in team building
         self.arrow_img = tk.PhotoImage(file="img\\general\\arrow.png")
