@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import ttk
 import tft
 from unit import Unit
+from pygame import mixer
 
 class ThinkFastGUI:
     def __init__(self):
@@ -13,7 +14,7 @@ class ThinkFastGUI:
         self.window.title("Think Fast Client")
         self.window_icon = tk.PhotoImage(file='img\general\logo.png')
         self.window.iconphoto(True, self.window_icon)
-        style=ttk.Style()
+        mixer.init()
 
         # Set the window size
         window_width = 1280
@@ -42,7 +43,10 @@ class ThinkFastGUI:
         self.shop_count = 0
         self.bought_units = []
         self.seen_units = []
-        self.apm = 0
+        self.actions = 0
+        self.unit_stats = []
+        self.refresh_sound = mixer.Sound("sound\\reroll.wav")
+        self.buy_sound = mixer.Sound("sound\\purchase.wav")
 
         # Creates the different frames for the game
         self.landing_frame = tk.Frame(self.window, bg="black")
@@ -243,6 +247,65 @@ class ThinkFastGUI:
 
         # Below are the elements of the scoreboard_frame
 
+        # Creates a label to display the scoreboard title image
+        scoreboard_img_path = "img\\general\\scoreboard.png"
+        self.scoreboard_img = tk.PhotoImage(file=scoreboard_img_path)
+        self.scoreboard_label = tk.Label(self.scoreboard_frame, image=self.scoreboard_img, background="black")
+        self.scoreboard_label.pack(side="top")
+
+        # Creates a frame to hold elements of the scoreboard
+        self.scoreboard_elements_frame = tk.Frame(self.scoreboard_frame, bg="black", width=1200, height=500)
+        self.scoreboard_elements_frame.pack()
+        self.scoreboard_elements_frame.pack_propagate(False)
+
+        # Creates a frame to hold the user's scores
+        self.user_scoreboard_frame = tk.Frame(self.scoreboard_elements_frame, bg="black", width=800, height=500)
+        self.user_scoreboard_frame.pack(side="left")
+        self.user_scoreboard_frame.pack_propagate(False)
+
+        self.actions_label = tk.Label(self.user_scoreboard_frame, text="Actions:", font=("Ariel", 30), bg="black", fg="white")
+        self.actions_label.pack(side="top", anchor="w")
+
+        self.apm_label = tk.Label(self.user_scoreboard_frame, text="APM:", font=("Ariel", 30), bg="black", fg="white")
+        self.apm_label.pack(side="top", anchor="w", pady=(20, 0))
+
+        self.hits_label = tk.Label(self.user_scoreboard_frame, text="Hits:", font=("Ariel", 30), bg="black", fg="white")
+        self.hits_label.pack(side="top", anchor="w", pady=(20, 0))
+
+        self.misses_label = tk.Label(self.user_scoreboard_frame, text="Misses:", font=("Ariel", 30), bg="black", fg="white")
+        self.misses_label.pack(side="top", anchor="w", pady=(20, 0))
+
+        self.rolled_past_label = tk.Label(self.user_scoreboard_frame, text="Rolled Past:", font=("Ariel", 30), bg="black", fg="white")
+        self.rolled_past_label.pack(side="top", anchor="w", pady=(20, 0))
+
+        self.hit_percentage_label = tk.Label(self.user_scoreboard_frame, text="Hit Percentage:", font=("Ariel", 30), bg="black", fg="white")
+        self.hit_percentage_label.pack(side="top", anchor="w", pady=(20, 0))
+
+        # Frame for shits and giggles that holds labels with encouraging messages
+        self.encouraging_message_frame = tk.Frame(self.scoreboard_elements_frame, bg="black", width=400, height=250)
+        self.encouraging_message_frame.pack(side="top", anchor="e")
+        self.encouraging_message_frame.pack_propagate(False)
+
+        proud_img_path = "img\\general\\proud.png"
+        self.proud_img = tk.PhotoImage(file=proud_img_path)
+        self.proud_label = tk.Label(self.encouraging_message_frame, image=self.proud_img, background="black")
+        self.proud_label.pack()
+
+        gj_img_path = "img\\general\\gj.png"
+        self.gj_img = tk.PhotoImage(file=gj_img_path)
+        self.gj_label = tk.Label(self.encouraging_message_frame, image=self.gj_img, background="black")
+        self.gj_label.pack(side="bottom", anchor="w")
+
+        thumb_img_path = "img\\general\\thumb.png"
+        self.thumbs_up_img = tk.PhotoImage(file=thumb_img_path)
+        self.thumbs_up_label = tk.Label(self.encouraging_message_frame, image=self.thumbs_up_img, background="black")
+        self.thumbs_up_label.place(x=250, y=100)
+
+        rank_img_path = "img\\general\\rank.png"
+        self.rank_img = tk.PhotoImage(file=rank_img_path)
+        self.rank_label = tk.Label(self.scoreboard_elements_frame, image=self.rank_img, background="black")
+        self.rank_label.pack(side="bottom", anchor="e")
+
         # self.start_timer()
         self.window.mainloop()
 
@@ -276,6 +339,7 @@ class ThinkFastGUI:
         self.gold.config(text=f"{self.user_gold}¢")
         self.shop_count += 1
         self.populate_shop()
+        self.refresh_sound.play()
         
     # All functions to handle team builder selection and deselection
     def select_unit(self, element):
@@ -362,6 +426,7 @@ class ThinkFastGUI:
                 self.buy_unit_helper(element)
     
     def buy_unit_helper(self, element):
+        self.buy_sound.play()
         self.apm_counter()
         empty_img = tk.PhotoImage(file="img\general\empty.png")
         element.config(image=empty_img)
@@ -376,7 +441,7 @@ class ThinkFastGUI:
         else:
             self.user_gold = self.gold_entry.get()
         user_level = self.level_combobox.get()
-        self.user_time = float(self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]) + 0.3 # lol
+        self.user_time = float(self.find_time_interval()) + 0.3 # lol
 
         unit_cost_odds = tft.tft_level_odds[int(user_level)]
 
@@ -391,6 +456,10 @@ class ThinkFastGUI:
         self.five_cost_odds.config(text=f"{unit_cost_odds[4]}%")
 
         self.generate_shops(unit_cost_odds)
+
+    # Functions to handle finding the time interval for the game
+    def find_time_interval(self):
+        return self.time_combobox.get()[self.time_combobox.get().find('(')+1:self.time_combobox.get().find('(')+3]
 
     def generate_shops(self, odds):
         if self.user_gold == "∞":
@@ -445,13 +514,70 @@ class ThinkFastGUI:
                 case "5":
                     self.five_cost[data[unit]['name']] = temp
 
-    # Functions to handle the scoreboard, ensure that users don't start the game before pressing the start button
+    # Function to ensure that users don't start the game before pressing the start button
     def game_on(self):
         # Sets a hotkey for refreshing the shop
         self.window.bind("<KeyPress-d>", self.refresh_shortcut)
     
+    # Function to handle the actions per minute counter
     def apm_counter(self, event=None):
-        self.apm += 1
+        self.actions += 1
+
+    # Functions to handle the calculation of the user's scores
+    def calc_apm(self):
+        return self.actions / int(self.find_time_interval())
+    
+    # Function to calculate how many units a user bought that was in their target team, 
+    # how many units a user bought that was not in their target team, and how many units
+    # a user did not buy that was in their target team.
+    # Sets global variable unit_stats to a list of four strings: [Hits, Misses, Rolled Past, and Hit %]
+    def calc_unit_stats(self):
+        hits = 0
+        misses = 0
+        rolled_past = 0
+
+        bought_units_dict = self.convert_to_dict(self.bought_units)
+        seen_units_dict = self.convert_to_dict(self.seen_units)
+
+        for unit in self.bought_units:
+            if unit in self.target_team:
+                hits += 1
+            else:
+                misses += 1
+        
+        for unit in self.target_team:
+            if unit in seen_units_dict and unit in bought_units_dict:
+                rolled_past += seen_units_dict[unit] - bought_units_dict[unit]
+            elif unit in seen_units_dict and unit not in bought_units_dict:
+                rolled_past += seen_units_dict[unit]
+
+        hit_percentage = str(self.calc_hit_percentage(hits, misses)) + " %"
+        self.unit_stats = [hits, misses, rolled_past, hit_percentage]
+        self.display_scores()
+    
+    # Function to display the user's scores with pre-existing labels
+    def display_scores(self):
+        self.actions_label.config(text=f"Actions: {self.actions}")
+        self.apm_label.config(text=f"APM: {self.calc_apm()}")
+        self.hits_label.config(text=f"Hits: {self.unit_stats[0]}")
+        self.misses_label.config(text=f"Misses: {self.unit_stats[1]}")
+        self.rolled_past_label.config(text=f"Rolled Past: {self.unit_stats[2]}")
+        self.hit_percentage_label.config(text=f"Hit Percentage: {self.unit_stats[3]}")
+
+    # Function to calculate the user's hit percentage
+    def calc_hit_percentage(self, hits, misses):
+        total = hits + misses
+        return hits / total * 100
+
+    # Helper function to convert the list of seen and bought units to a dictionary of unit counts
+    def convert_to_dict(self, list):
+        result_dict = {}
+        for item in list:
+            if item in result_dict:
+                result_dict[item] += 1
+            else:
+                result_dict[item] = 1
+        return result_dict
 
     # Functions to handle frame switching
     def to_team_planner(self):
@@ -468,7 +594,7 @@ class ThinkFastGUI:
         self.game_frame.pack(fill=tk.BOTH, expand=True)
 
     def to_scoreboard(self):
-        print(self.apm)
+        self.calc_unit_stats()
         self.game_frame.pack_forget()
         self.scoreboard_frame.pack(fill=tk.BOTH, expand=True)
 
