@@ -1,3 +1,5 @@
+import sys
+import os
 import time
 import random
 import json
@@ -12,7 +14,8 @@ class ThinkFastGUI:
 
         self.window = tk.Tk()
         self.window.title("Think Fast Client")
-        self.window_icon = tk.PhotoImage(file='img\general\logo.png')
+        self.window_icon_path = self.resource_path("img\general\logo.png")
+        self.window_icon = tk.PhotoImage(file=self.window_icon_path)
         self.window.iconphoto(True, self.window_icon)
         mixer.init()
 
@@ -63,7 +66,7 @@ class ThinkFastGUI:
         # Below are the elements of the landing_frame
 
         # Creates a label to display the background of the landing page
-        self.homepage_icon = tk.PhotoImage(file="img\general\cover.png")
+        self.homepage_icon = tk.PhotoImage(file=self.resource_path("img\general\cover.png"))
         self.homepage = tk.Label(self.landing_frame, image=self.homepage_icon)
         self.homepage.grid(row=0, column=0)
 
@@ -97,7 +100,7 @@ class ThinkFastGUI:
         # Below are the elements of the team_builder_frame
 
         # Creates a label to display the team builder title image
-        self.team_builder_img = tk.PhotoImage(file="img\\general\\team_builder.png")
+        self.team_builder_img = tk.PhotoImage(file=self.resource_path("img\\general\\team_builder.png"))
         self.team_builder_title_img = tk.Label(self.team_builder_frame, image=self.team_builder_img, width=640, height=100, background="white")
         self.team_builder_title_img.pack(anchor="nw")
 
@@ -133,7 +136,7 @@ class ThinkFastGUI:
                 champframe.grid(row=row, column=column, padx=10, pady=(10, 0) if row == 0 else (0, 10))
                 champframe.bind('<MouseWheel>', lambda event: self.champion_select_canvas.yview_scroll(-int(event.delta/60), "units"))
 
-                champion_icon = tk.PhotoImage(file=self.costs[i][list(self.costs[i])[j]].get_icon_path())
+                champion_icon = tk.PhotoImage(file=self.resource_path(self.costs[i][list(self.costs[i])[j]].get_icon_path()))
                 champion_image = tk.Label(champframe, image=champion_icon, width=50, height=50, background="white", highlightbackground="black", highlightthickness=3)
                 champion_image.image = champion_icon
                 champion_image.grid(row=0, column=0)
@@ -148,7 +151,7 @@ class ThinkFastGUI:
                 self.champion_images[i].append(champion_image)
 
         # Creates a label for clarity in team building
-        self.arrow_img = tk.PhotoImage(file="img\\general\\arrow.png")
+        self.arrow_img = tk.PhotoImage(file=self.resource_path("img\\general\\arrow.png"))
         self.arrow_img_label = tk.Label(self.team_builder_frame, image=self.arrow_img, background="white")
         self.arrow_img_label.place(x=550, y=260)
 
@@ -157,7 +160,7 @@ class ThinkFastGUI:
         self.team_select_frame.place(x=865, y=265)
 
         # Creates a label for visibility
-        self.user_team_img = tk.PhotoImage(file="img\\general\\your_team.png")
+        self.user_team_img = tk.PhotoImage(file=self.resource_path("img\\general\\your_team.png"))
         self.user_team = tk.Label(self.team_builder_frame, background="white", image=self.user_team_img)
         self.user_team.place(x=825, y=125)
 
@@ -173,7 +176,7 @@ class ThinkFastGUI:
         # Creates a button to continue to the next part of the game
         self.warning_label = tk.Label(self.team_builder_frame, text= "WARNING!! The game starts the moment you press this button. Be ready!", font=("Ariel", 8), background="yellow")
         self.warning_label.place(x=820, y=600)
-        self.warning_arrow_img = tk.PhotoImage(file="img\\general\\arrow2.png")
+        self.warning_arrow_img = tk.PhotoImage(file=self.resource_path("img\\general\\arrow2.png"))
         self.warning_arrow = tk.Label(self.team_builder_frame, image=self.warning_arrow_img, background="white")
         self.warning_arrow.place(x=1020, y= 620)
         self.to_game_button = tk.Button(self.team_builder_frame, text="START!", command=self.to_game, width=10, height=2)
@@ -209,12 +212,12 @@ class ThinkFastGUI:
         # Creates a button for spending gold to level up
         # This button will be clickable but has no function for this version of the game
         # Clicking this button will do nothing
-        button_level_up_img = tk.PhotoImage(file="img\\general\\buy_xp.png")
+        button_level_up_img = tk.PhotoImage(file=self.resource_path("img\\general\\buy_xp.png"))
         self.button_level_up = tk.Button(self.action_frame, image=button_level_up_img, width=150, height=38, borderwidth=0)
         self.button_level_up.grid(row=0, column=0, padx=5, pady=(3,0))
 
         # Creates a button for refreshing the shop
-        button_refresh_img = tk.PhotoImage(file="img\\general\\refresh.png")
+        button_refresh_img = tk.PhotoImage(file=self.resource_path("img\\general\\refresh.png"))
         self.button_refresh = tk.Button(self.action_frame, image=button_refresh_img, command=self.refresh, width=150, height=38, borderwidth=0)
         self.button_refresh.grid(row=1, column=0, padx=5, pady=3)
 
@@ -248,7 +251,7 @@ class ThinkFastGUI:
         # Below are the elements of the scoreboard_frame
 
         # Creates a label to display the scoreboard title image
-        scoreboard_img_path = "img\\general\\scoreboard.png"
+        scoreboard_img_path = self.resource_path("img\\general\\scoreboard.png")
         self.scoreboard_img = tk.PhotoImage(file=scoreboard_img_path)
         self.scoreboard_label = tk.Label(self.scoreboard_frame, image=self.scoreboard_img, background="black")
         self.scoreboard_label.pack(side="top")
@@ -286,22 +289,22 @@ class ThinkFastGUI:
         self.encouraging_message_frame.pack(side="top", anchor="e")
         self.encouraging_message_frame.pack_propagate(False)
 
-        proud_img_path = "img\\general\\proud.png"
+        proud_img_path = self.resource_path("img\\general\\proud.png")
         self.proud_img = tk.PhotoImage(file=proud_img_path)
         self.proud_label = tk.Label(self.encouraging_message_frame, image=self.proud_img, background="black")
         self.proud_label.pack()
 
-        gj_img_path = "img\\general\\gj.png"
+        gj_img_path = self.resource_path("img\\general\\gj.png")
         self.gj_img = tk.PhotoImage(file=gj_img_path)
         self.gj_label = tk.Label(self.encouraging_message_frame, image=self.gj_img, background="black")
         self.gj_label.pack(side="bottom", anchor="w")
 
-        thumb_img_path = "img\\general\\thumb.png"
+        thumb_img_path = self.resource_path("img\\general\\thumb.png")
         self.thumbs_up_img = tk.PhotoImage(file=thumb_img_path)
         self.thumbs_up_label = tk.Label(self.encouraging_message_frame, image=self.thumbs_up_img, background="black")
         self.thumbs_up_label.place(x=250, y=100)
 
-        rank_img_path = "img\\general\\rank.png"
+        rank_img_path = self.resource_path("img\\general\\rank.png")
         self.rank_img = tk.PhotoImage(file=rank_img_path)
         self.rank_label = tk.Label(self.scoreboard_elements_frame, image=self.rank_img, background="black")
         self.rank_label.pack(side="bottom", anchor="e")
@@ -345,14 +348,14 @@ class ThinkFastGUI:
     def select_unit(self, element):
         for i in range(len(self.teammates)):
             if self.teammates[i].name is None:
-                img_path = self.find_champion(element.name).get_icon_path()
+                img_path = self.resource_path(self.find_champion(element.name).get_icon_path())
                 new_img = tk.PhotoImage(file=img_path)
                 self.teammates[i].name = element.name
                 self.teammates[i].config(image=new_img)
                 self.teammates[i].image = new_img
                 self.teammates[i].bind("<Button-1>", lambda event, label=self.teammates[i]: self.deselect_unit(label))
 
-                selected = tk.PhotoImage(file="img\icons\empty.png")
+                selected = tk.PhotoImage(file=self.resource_path("img\icons\empty.png"))
                 element.config(image=selected)
                 element.image = selected
                 element.unbind("<Button-1>")
@@ -363,7 +366,7 @@ class ThinkFastGUI:
         for j in range(len(self.champion_images)):
             for k in range(len(self.champion_images[j])):
                 if self.champion_images[j][k].name == element.name:
-                    img_path = self.find_champion(element.name).get_icon_path()
+                    img_path = self.resource_path(self.find_champion(element.name).get_icon_path())
                     new_img = tk.PhotoImage(file=img_path)
                     self.champion_images[j][k].config(image=new_img)
                     self.champion_images[j][k].image = new_img
@@ -371,7 +374,7 @@ class ThinkFastGUI:
                     break
 
         element.name = None
-        deselected = tk.PhotoImage(file="img\icons\empty.png")
+        deselected = tk.PhotoImage(file=self.resource_path("img\icons\empty.png"))
         element.config(image=deselected)
         element.image = deselected
         element.unbind("<Button-1>")
@@ -428,7 +431,7 @@ class ThinkFastGUI:
     def buy_unit_helper(self, element):
         self.buy_sound.play()
         self.apm_counter()
-        empty_img = tk.PhotoImage(file="img\general\empty.png")
+        empty_img = tk.PhotoImage(file=self.resource_path("img\general\empty.png"))
         element.config(image=empty_img)
         element.image = empty_img
         element.unbind("<Button-1>")
@@ -488,7 +491,7 @@ class ThinkFastGUI:
 
     def populate_shop(self):
         for i in range(len(self.shops[self.shop_count])):
-            img_path = self.find_champion(self.shops[self.shop_count][i]).get_img_path()
+            img_path = self.resource_path(self.find_champion(self.shops[self.shop_count][i]).get_img_path())
             new_img = tk.PhotoImage(file=img_path)
             self.shop_units[i].config(image=new_img)
             self.shop_units[i].image = new_img
@@ -597,5 +600,16 @@ class ThinkFastGUI:
         self.calc_unit_stats()
         self.game_frame.pack_forget()
         self.scoreboard_frame.pack(fill=tk.BOTH, expand=True)
+
+    # Credit to https://stackoverflow.com/questions/31836104/pyinstaller-and-onefile-how-to-include-an-image-in-the-exe-file
+    def resource_path(self, relative_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS2
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
 
 ThinkFastGUI()
