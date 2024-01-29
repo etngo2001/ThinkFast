@@ -21,6 +21,11 @@ An in-depth paragraph about your project and overview of use.
 ## Help
 
 Good luck!
+Just kidding, many users who download the ZIP will encounter issues where Windows Defender flags the program as a virus since the program itself is made by me, a smalltime developer just making fun projects for fun, therefore, it is not signed, and has no certificates attached (and maybe other reasons I'm unaware of) thus Winwdows will always play on the safe side to ensure your security and flag this as a potential threat. Now how to actually fix it: You have 2 options. Option 1 is to manually unflag it from your Windows Defender which you effectively saying "Hey, I trust this Eugene kid and his program." which is great. Enjoy! Or, if your parents ever taught you "stranger danger" and you don't trust this 'Eugene kid,' then the safest route is for you to follow the first point under the Installing/Executing header: to use an IDE, clone the repo, and run the code yourself. Those are your options, I hope this helped!
+
+...
+
+But wait! There might be a 3rd option. If you have read the 'Future Plans' section or you plan to, you'll see that I do want people to be able to access this and enjoy it because it's like my baby and I'm proud of it. So eventually, I'll be creating a more widely accessible version which you can always wait for. There you go! Secret option number 3.
 
 ## Authors
 
