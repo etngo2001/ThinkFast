@@ -1,8 +1,6 @@
 # ThinkFast
 A TFT simulator and APM stat check
 
-Simple overview of use/purpose.
-
 ## Description
 
 An in-depth paragraph about your project and overview of use.
