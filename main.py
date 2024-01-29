@@ -528,7 +528,14 @@ class ThinkFastGUI:
 
     # Functions to handle the calculation of the user's scores
     def calc_apm(self):
-        return self.actions / int(self.find_time_interval())
+        print(int(self.find_time_interval()))
+        print(int(self.find_time_interval()) == 30)
+        if (int(self.find_time_interval()) == 30):
+            print("30")
+            return self.actions * 2
+        else:
+            print("45")
+            return (self.actions * 4/3)
     
     # Function to calculate how many units a user bought that was in their target team, 
     # how many units a user bought that was not in their target team, and how many units
@@ -570,7 +577,10 @@ class ThinkFastGUI:
     # Function to calculate the user's hit percentage
     def calc_hit_percentage(self, hits, misses):
         total = hits + misses
-        return hits / total * 100
+        if total == 0:
+            return 0
+        else:
+            return hits / total * 100
 
     # Helper function to convert the list of seen and bought units to a dictionary of unit counts
     def convert_to_dict(self, list):

@@ -1,9 +1,23 @@
-# ThinkFast
+# Think Fast
 A TFT simulator and APM stat check
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+This program is inspired by a prismatic augment from Riot Game's Teamfight Tactics. This tool is meant to help users practice their quick thinking and roll down reflexes in a no-stakes, stress-free environment so then when you decide to roll down, you'll be effectively using all your time and gold! (Imagine dying with more than 10+ gold)
+
+### How it works
+
+First, you'll land on the welcome page with our highest quality graphics where you'll be able to select what level you'd want to simulate rolling down on, how much gold you want to limit (or not limit ('inf' for infinite gold. yw.)) yourself to, and the two differing round timers that TFT offers. From there we move on to the team planning phase. Similarly to TFT's own built-in team builder, you'll be selecting your target team. Then, once you're all set and you've chosen your team, get yourself nice and ready and click that "START" button. You'll be immediately launched into the game and you can start practicing your roll down (don't forget you can use the 'd' key as a shortcut for refreshing the shop) (and don't press the 'buy xp' button... it does nothing lol). TIME'S UP! You're automatically moved onto the results page where you'll be shown your personal statistics. Here's a breakdown:
+Actions: Any keystrokes or clicks you made during the rolldown
+APM: Actions per minute
+Hits: Units in your team that you bought
+Misses: Units that you bought that is not in your team
+Rolled Past: Units in your team that you did not buy
+Hit %: Hit to Miss Ratio
+
+Based on your performance, you'll be assigned a grade by my built-in system. For those of you familiar with MMR, the system and algorithm for calculating grades are similarly hidden from users.
+
+Good luck and have fun!
 
 ## Getting Started
 
