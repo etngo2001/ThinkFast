@@ -57,5 +57,5 @@ So a couple routes I want to take this project down the line. Unfortunately, I'm
 
 ## Acknowledgments
 
-Inspired by: [Teamfight Tactics/Riot Games](https://teamfighttactics.leagueoflegends.com/en-us/)
-Artwork by: Seo Kim [LinkedIn](https://www.linkedin.com/in/seo-kim-817b22176/) [Portfolio]()
+* Inspired by: [Teamfight Tactics/Riot Games](https://teamfighttactics.leagueoflegends.com/en-us/)
+* Artwork by: Seo Kim [LinkedIn](https://www.linkedin.com/in/seo-kim-817b22176/) Portfolio
