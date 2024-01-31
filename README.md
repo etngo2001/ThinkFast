@@ -53,7 +53,7 @@ Eugene Ngo
 
 ## Future Plans
 
-So a couple routes I want to take this project down the line. Unfortunately, I'm not sure of a way to bring this to a more easily-accessible plattform like hosting it on a website, so I may recode the program in another language or framework to make it more compatable with hosting on web services. The other direction is to add another mode designed to help with flexible roll downs which would be far more complicated since it requires more imitations of Teamfight Tactics mechanics but would be a cool version 2.0.
+So a couple routes I want to take this project down the line. Unfortunately, I'm not sure of a way to bring this to a more easily-accessible plattform like hosting it on a website, so I may recode the program in another language or framework to make it more compatable with hosting on web services. Once I do this, I also want to start implementing accounts for users to save their results and consequently to be able to implement data trackers for user's to be able to see their progress and improvement over time. The other direction is to add another mode designed to help with flexible roll downs which would be far more complicated since it requires more imitations of Teamfight Tactics mechanics but would be a cool version 2.0.
 
 ## Acknowledgments
 
