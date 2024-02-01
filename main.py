@@ -77,7 +77,7 @@ class ThinkFastGUI:
         self.level_label = tk.Label(self.user_input_frame, text="Select Desired Level:", bg="lightgray", pady=10, width=15, anchor=tk.E)
         self.level_label.grid(row=0, column=0, padx=(10, 0))
 
-        self.level_combobox = ttk.Combobox(self.user_input_frame, value=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], width=22, state="readonly")
+        self.level_combobox = ttk.Combobox(self.user_input_frame, value=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], width=22, state="readonly")
         self.level_combobox.grid(row=0, column=1, sticky="w", padx=(0,10))
 
         self.gold_label = tk.Label(self.user_input_frame, text="Enter Desired Gold:", bg="lightgray", pady=10, width=15, anchor=tk.E)

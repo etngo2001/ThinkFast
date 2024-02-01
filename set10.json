@@ -187,7 +187,7 @@
     },
     "Miss Fortune": {
         "name": "Miss Fortune",
-        "cost": "5",
+        "cost": "3",
         "img_path": "img\\champions\\Miss Fortune.png",
         "icon_path": "img\\icons\\Miss Fortune.png"
     },
